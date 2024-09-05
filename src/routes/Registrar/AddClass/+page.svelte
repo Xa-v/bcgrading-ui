@@ -181,7 +181,7 @@
             <select id="teacherId" class="form-select" bind:value={teacherId} required size="1" style="max-height: 150px; overflow-y: auto;">
                 <option value="">Choose...</option>
                 {#each teachers as teacher}
-                    <option value={teacher.id} > {teacher.firstName} {teacher.lastName}</option>
+                    <option value={teacher.id} >{teacher.id} {teacher.firstName} {teacher.lastName}</option>
                 {/each}
             </select>
         </div>

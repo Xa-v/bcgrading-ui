@@ -16,7 +16,7 @@
         if (typeof window !== 'undefined' && window.history.length > 1) {
             setTimeout(() => {
                 window.history.back();
-                }, 50); 
+                }, 75); 
             
         } else {
          
