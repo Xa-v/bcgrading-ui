@@ -204,6 +204,7 @@
                     <th>Created</th>
                     <th>Updated</th>
                     <th>Status</th>
+                    <th>View Grades</th>
                 </tr>
             </thead>
             <tbody>
@@ -224,6 +225,7 @@
                             <p class="badge-lg text-center text-bg-danger">Inactive</p>
                         {/if}
                     </td>
+                    <td> <a href={`Grades/${classlist.classid}`}> select</a></td>
                 </tr>
                 {/each}
             </tbody>
