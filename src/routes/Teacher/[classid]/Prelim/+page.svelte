@@ -93,7 +93,7 @@
                   <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final`} role="tab" aria-selected="false">QUIZ</a>
               </li>
               <li class="nav-item flex-grow-1">
-                <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final`} role="tab" aria-selected="false">ACTIVITY</a>
+                <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final`} role="tab" aria-selected="false">ACTIVITY/PROJECT</a>
             </li>
             <li class="nav-item flex-grow-1">
               <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final`} role="tab" aria-selected="false">EXAM</a>

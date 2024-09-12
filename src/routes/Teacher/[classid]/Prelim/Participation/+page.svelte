@@ -93,12 +93,19 @@
                   <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Prelim/Quiz`} role="tab" aria-selected="false">QUIZ</a>
               </li>
               <li class="nav-item flex-grow-1">
-                <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Prelim/Activity-Project`} role="tab" aria-selected="false">ACTIVITY</a>
+                <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Prelim/Activity-Project`} role="tab" aria-selected="false">ACTIVITY/PROJECT</a>
             </li>
             <li class="nav-item flex-grow-1">
               <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Prelim/Exam`} role="tab" aria-selected="false">EXAM</a>
           </li>
           </ul>
+
+
+
+
+
+
+          
         </div>
     </div>
     
