@@ -18,10 +18,7 @@
         bootstrap = bootstrapModule.default;
 
         const token = localStorage.getItem('jwtToken');
-  
-     
-            const decodedToken = jwtDecode(token);
-            userRole = decodedToken.role;
+ 
 
           
 

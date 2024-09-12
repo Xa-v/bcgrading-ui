@@ -1,3 +1,4 @@
+<!-- src/routes/Admin/+layout.svelte -->
 <script>
   import 'bootstrap/dist/css/bootstrap.min.css';
   import { onMount } from 'svelte';
@@ -11,9 +12,9 @@
   let bootstrap;  // Variable to hold the imported Bootstrap module
   let error = '';
   let showUnauthorizedMessage = false;
-  let countdown = 5;
-  let redirectMessage = '';
+
   let userRole = '';
+  let userID = '';
 
   // Function to handle logout
   function logout() {
@@ -21,25 +22,6 @@
     goto('/Login');  // Redirect to the login page immediately
   }
 
-
-   // Reactive statement that runs when the URL changes
-   $: if ($page.url.pathname) {
-      const path = $page.url.pathname;
-      const parts = path.split('/').filter(Boolean);
-
-      // Check if the first letter of any part of the path is lowercase
-      const correctedParts = parts.map(part => {
-          return part.charAt(0).toUpperCase() + part.slice(1);
-      });
-
-      const correctedPath = '/' + correctedParts.join('/');
-
-      // If the corrected path is different from the current path, redirect
-      if (correctedPath !== path) {
-          goto(correctedPath);
-      }
-  }
- 
 
 
 
@@ -49,26 +31,41 @@
 
     await import('bootstrap/dist/js/bootstrap.bundle.min.js');
 
+
+   
       const token = localStorage.getItem('jwtToken');
+      // const idtoken = jwtDecode(token);
+      //  userID = idtoken.id;
+      // console.log("User ID:", userID);
 
         if (!token) {
-              unauthorizedAccess("Log-in sa doy redirecting to login...");
+              // unauthorizedAccess("Log-in sa doy redirecting to login...");
+              showUnauthorizedMessage = true;
+              logout();
                     return;
                 }
 
                 try {
           const decodedToken = jwtDecode(token);
           userRole = decodedToken.role;
+          userID = decodedToken.id;
+          console.log("Role:", userRole);
+          console.log("ID:", userID);
+          
 
           if (userRole !== 'Admin') {
-              redirectMessage = `Role '${userRole}' does not have access to this page.`;
-              unauthorizedAccess("Redirecting you to your role-specific page.");
+              // redirectMessage = `Role '${userRole}' does not have access to this page.`;
+              // unauthorizedAccess("Redirecting you to your role-specific page.");
+              showUnauthorizedMessage = true;
+              goto(`/${userRole}`);
               return;
           }
 
         } catch (error) {
           console.error('Error:', error);
-          unauthorizedAccess("Error decoding token, redirecting to login.");
+          // unauthorizedAccess("Error decoding token, redirecting to login.");
+          showUnauthorizedMessage = true;
+          logout();
       }
 
     
@@ -99,28 +96,6 @@
     }
 
 
-
-
-     // New logic to enforce uppercase in paths
-     const unsubscribe = page.subscribe(($page) => {
-      if ($page && $page.url && $page.url.pathname) {
-        const path = $page.url.pathname;
-        const parts = path.split('/').filter(Boolean);
-
-        const correctedParts = parts.map(part => {
-          return part.charAt(0).toUpperCase() + part.slice(1);
-        });
-
-        const correctedPath = '/' + correctedParts.join('/');
-
-        if (correctedPath !== path) {
-          goto(correctedPath);
-        }
-      }
-    });
-     // Cleanup subscription on component destroy
-    return () => unsubscribe();
-
   });
  // Function to handle closing offcanvas
  function closeOffcanvas() {
@@ -137,35 +112,14 @@
 
 
 
-
-  function unauthorizedAccess(message) {
-      console.error(message);
-      showUnauthorizedMessage = true;
-      redirectMessage = message;
-      const interval = setInterval(() => {
-          countdown--;
-          if (countdown <= 0) {
-              clearInterval(interval);
-              if (redirectMessage.includes("login")) {
-                  goto('/Login');
-              } else {
-                  goto(`/${userRole}`);
-              }
-          }
-      }, 1000);
-  }
-
-
  
 
   
 </script>
 {#if showUnauthorizedMessage}
-<div class="popup" in:fade={{ duration: 100 }}>
-    <div class="popup-content">
-        <h1>{redirectMessage}</h1>
-        <h1>wait lang doy mga {countdown} seconds...</h1>
-    </div>
+<div class="popup" >
+ 
+    
 </div>
 {/if}
 
@@ -329,12 +283,7 @@
         z-index: 1050;
     }
 
-    .popup-content {
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        text-align: center;
-    }
+
   .custom-offcanvas-size {
     width: 15%; /* Adjust this percentage to control the size of the offcanvas */
     max-width: 15%; /* Ensures the offcanvas doesn't exceed this width */

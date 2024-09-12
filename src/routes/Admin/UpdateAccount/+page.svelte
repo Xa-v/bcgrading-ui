@@ -1,3 +1,4 @@
+<!-- src/routes/Admin/UpdateAccount -->
 <script>
     import { writable } from 'svelte/store';
     import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,8 +17,6 @@
         const token = localStorage.getItem('jwtToken');
   
      
-            const decodedToken = jwtDecode(token);
-            userRole = decodedToken.role;
 
           
 

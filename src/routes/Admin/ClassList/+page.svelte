@@ -211,7 +211,7 @@
                 <tr>
                     <td>{classlist.classid}</td>
                     <td>{classlist.subjectcode}</td>
-                    <td>{classlist.title}</td>
+                    <td>{classlist.Subjectitle.title}</td>
                     <td>{classlist.year}</td>
                     <td>{classlist.semester}</td>
                     <td>{classlist.teacherid}</td>
@@ -252,7 +252,7 @@
                     <tr>
                         <td>{classlist.classid}</td>
                         <td>{classlist.subjectcode}</td>
-                        <td>{classlist.title}</td>
+                        <td>{classlist.Subjectitle.title}</td>
                         <td>{classlist.year}</td>
                         <td>{classlist.semester}</td>
                         <td>{classlist.teacherid}</td>

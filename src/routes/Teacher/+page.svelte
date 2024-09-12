@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
     import { fade } from 'svelte/transition';
@@ -141,4 +141,8 @@ function showConfirmLogout() {
         background-color: #f44336; /* Red for No */
         color: white;
     }
-</style>
+</style> -->
+
+
+<h1>Teacher Dashboard</h1>
+<p>Welcome, Teacher!</p>

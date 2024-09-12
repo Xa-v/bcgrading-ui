@@ -1,3 +1,4 @@
+<!-- src/routes/Login -->
 <script>
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
@@ -67,65 +68,6 @@
 
 
 
-
-<!-- 
-<h3 class="card-header">Login</h3>
-
-
-<div class="card-body">
-<form on:submit|preventDefault={handleLogin}>
-
-    
-    <label for="username">Username:</label>
-    <input id="username" bind:value={username} required />
-
-    <label for="password">Password:</label>
-    <input id="password" type="password" bind:value={password} required />
-
-    <button type="submit">Login</button>
-</form>
-</div> -->
-
-
-<!-- <div class="parent-container">
-<div class="form__container">
-    <form on:submit|preventDefault={handleLogin}>
-      <div class="header__form">
-       
-        <img src={logo} alt="Logo" />
-      
-      </div>
-
-      <div class="main__input__container">
-      
-        <div class="input-container">
-          <input type="text" id="username" bind:value={username} required />
-          <label for="username" class="label">Username</label>
-          <div class="underline"></div>
-        </div>
-        <div class="input-container">
-          <input type="password" id="password" bind:value={password} required/>
-          <label for="password" class="label">Password</label>
-          <div class="underline"></div>
-   
-        </div>
-      
-        <div class="input-container">
-            {#if error}
-          <p style="color: red">{error}</p>
-            {/if}
-        </div>
-        <div class="button">
-          <button type="submit" class="sign__in__button">Sign In</button>
-        </div>
-
-        
-      </div>
-    </form>
-  </div>
-
-</div> -->
-
 <section class="vh-100">
   <div class="container-fluid p-0">
     <div class="row">
@@ -139,11 +81,6 @@
         <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
 
           <form style="width: 23rem;" on:submit|preventDefault={handleLogin}>
-
-        
-              <!-- <input type="text" id="username" bind:value={username} required />
-              <label for="username" class="label">Username</label>
-              <div class="underline"></div> -->
 
               <div class="form-floating mb-3">
                 <input type="text" id="username" bind:value={username} required class="form-control" placeholder="Username" />

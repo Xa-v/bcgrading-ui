@@ -2,15 +2,17 @@
     import 'bootstrap/dist/css/bootstrap.min.css';
     import { onMount } from 'svelte';
     import {jwtDecode} from 'jwt-decode';
-
+    import { page } from '$app/stores';
+    import { goto } from '$app/navigation';
     let years = [];
     let semesters = [];
     let subjects = [];
     let classes = [];
     let error = '';
     let userRole = '';
-    
+    let userID = '';
    
+ $: ({ classid } = $page.params);
 
     onMount(async () => {
 
@@ -22,10 +24,12 @@
         
       
             const decodedToken = jwtDecode(token);
-            userRole = decodedToken.role;  // Save userRole for later use
+            userRole = decodedToken.role;  
+            userID = decodedToken.id;
+            console.log("ID:", userID);
 
             // Fetch the years if the user is authorized
-            const yearlist = await fetch('http://localhost:4000/registrar/years', {
+            const yearlist = await fetch(`http://localhost:4000/teacher/years/${userID}`, {
                 headers: {
                     'Authorization': `Bearer ${token}` // Include JWT token
                 }
@@ -38,7 +42,7 @@
             }
 
 
-            const semesterlist = await fetch('http://localhost:4000/registrar/semesters', {
+            const semesterlist = await fetch(`http://localhost:4000/teacher/semesters/${userID}`, {
                 headers: {
                     'Authorization': `Bearer ${token}` // Include JWT token
                 }
@@ -51,7 +55,7 @@
             }
             
 
-            const subjectlist = await fetch('http://localhost:4000/registrar/subjects', {
+            const subjectlist = await fetch(`http://localhost:4000/teacher/subjects/${userID}`, {
                 headers: {
                     'Authorization': `Bearer ${token}` // Include JWT token
                 }
@@ -64,7 +68,7 @@
             }
 
             
-            const classlist = await fetch('http://localhost:4000/registrar', {
+            const classlist = await fetch(`http://localhost:4000/teacher/${userID}`, {
                 headers: {
                     'Authorization': `Bearer ${token}` // Include JWT token
                 }
@@ -168,7 +172,7 @@
         <ul class="dropdown-menu" style="max-height: 200px; overflow-x: hidden; width: 500px !important;">
             {#each subjects as subject}
             <li class="bg-light border">
-                <button class="dropdown-item" on:click={() => handleSubjectSelect(subject.subjectcode)}>{subject.subjectcode} - {subject.title}</button>
+                <button class="dropdown-item" on:click={() => handleSubjectSelect(subject.subjectcode)}>{subject.subjectcode} - {subject.Subjectitle.title}</button>
             </li>
             {/each}
         </ul>
@@ -180,10 +184,15 @@
 
 
 
+    
 
 
 
-<h2>Class List</h2>
+
+
+{#if classes.length > 0}
+    <h1 class="m-2">Teacher:  {classes[0].TeacherInfo?.firstName} {classes[0].TeacherInfo?.lastName}</h1>
+{/if}
 
 
 
@@ -191,6 +200,8 @@
 {#if !error}
     {#if selectedYear === '' && selectedSemester === '' && selectedSubject === ''}
         <!-- Show entire table if no filters are selected -->
+       
+      
         <div style="max-height: 73vh; overflow-y: auto;">
         <table class="table table-bordered" style="width: 100% !important;">
             <thead>
@@ -200,12 +211,11 @@
                     <th>Subject Title</th>
                     <th>Year</th>
                     <th>Semester</th>
-                    <th>Teacher ID</th>
-                    <th>Teacher</th>
-                    <!-- <th>Created</th>
+                    <!-- <th>Teacher ID</th>
+                    <th>Created</th>
                     <th>Updated</th> -->
                     <th>Status</th>
-                    <th>View Class Info</th>
+                    <th>Grades</th>
                 </tr>
             </thead>
             <tbody>
@@ -216,9 +226,8 @@
                     <td>{classlist.Subjectitle.title}</td>
                     <td>{classlist.year}</td>
                     <td>{classlist.semester}</td>
-                    <td>{classlist.teacherid}</td>
-                    <td>{classlist.TeacherInfo.firstName} {classlist.TeacherInfo.lastName}</td>
-                    <!-- <td>{classlist.created}</td>
+                    <!-- <td>{classlist.teacherid}</td>
+                    <td>{classlist.created}</td>
                     <td>{classlist.updated}</td> -->
                     <td>
                         {#if classlist.isActive}
@@ -227,7 +236,7 @@
                             <p class="badge-lg text-center text-bg-danger">Inactive</p>
                         {/if}
                     </td>
-                    <td> <a href={`/Registrar/${classlist.classid}`}> select</a></td>
+                    <td><a href={`/Teacher/${classlist.classid}`}>SELECT</a></td>
                 </tr>
                 {/each}
             </tbody>

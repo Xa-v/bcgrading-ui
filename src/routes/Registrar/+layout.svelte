@@ -1,3 +1,4 @@
+
 <script>
     import 'bootstrap/dist/css/bootstrap.min.css';
     import { onMount } from 'svelte';
@@ -10,9 +11,6 @@
     let offcanvasElement;
     let bootstrap;  // Variable to hold the imported Bootstrap module
     let error = '';
-    let showUnauthorizedMessage = false;
-    let countdown = 5;
-    let redirectMessage = '';
     let userRole = '';
 
     // Function to handle logout
@@ -20,14 +18,7 @@
       localStorage.removeItem('jwtToken');  // Clear the JWT token
       goto('/Login');  // Redirect to the login page immediately
     }
-  
-  
-    
-  
-   
 
- 
-  
   
     // Use onMount to handle client-side operations
     onMount(async () => {
@@ -37,8 +28,9 @@
         const token = localStorage.getItem('jwtToken');
 
           if (!token) {
-                unauthorizedAccess("Log-in sa doy redirecting to login...");
-                      return;
+             
+                logout();
+                      // return;
                   }
 
                   try {
@@ -46,14 +38,16 @@
             userRole = decodedToken.role;
 
             if (userRole !== 'Registrar') {
-                redirectMessage = `Role '${userRole}' does not have access to this page.`;
-                unauthorizedAccess("Redirecting you to your role-specific page.");
-                return;
+      
+                goto(`/${userRole}`);
+              
+                // return;
             }
 
           } catch (error) {
             console.error('Error:', error);
-            unauthorizedAccess("Error decoding token, redirecting to login.");
+            logout();
+        
         }
 
       
@@ -101,25 +95,6 @@
   
 
 
-
-    function unauthorizedAccess(message) {
-        console.error(message);
-        showUnauthorizedMessage = true;
-        redirectMessage = message;
-        const interval = setInterval(() => {
-            countdown--;
-            if (countdown <= 0) {
-                clearInterval(interval);
-                if (redirectMessage.includes("login")) {
-                    goto('/Login');
-                } else {
-                    goto(`/${userRole}`);
-                }
-            }
-        }, 1000);
-    }
-
-
       // Reactive statement that runs when the URL changes
       $: if ($page.url.pathname) {
         const path = $page.url.pathname;
@@ -140,14 +115,7 @@
 
     
   </script>
-  {#if showUnauthorizedMessage}
-  <div class="popup" in:fade={{ duration: 100 }}>
-      <div class="popup-content">
-          <h1>{redirectMessage}</h1>
-          <h1>wait lang doy mga {countdown} seconds...</h1>
-      </div>
-  </div>
-  {/if}
+
   
   
   {#if error}
@@ -274,30 +242,7 @@
   
 
   <style>
-   .popup {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('/src/lib/images/crying-cat-thumb.jpg');
-        /* background-color: rgb(0, 0, 0,0); */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1050;
-    }
 
-    .popup-content {
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        text-align: center;
-    }
     .custom-offcanvas-size {
       width: 15%; /* Adjust this percentage to control the size of the offcanvas */
       max-width: 15%; /* Ensures the offcanvas doesn't exceed this width */
@@ -314,20 +259,7 @@
   .navbar{
     background-color: #001A56;
   }
-  /* .dropdown-menu{
-    border: none !important;
-  }
-  .dropdown-item:hover{
-    background-color: transparent !important;
-    color: #FF6100 !important;
-  } */
 
-  /* .logo{
-  
-    width: 100%;
-    height: 30px;
-  
-  } */
 
   .navbar-button{
     outline: none;
