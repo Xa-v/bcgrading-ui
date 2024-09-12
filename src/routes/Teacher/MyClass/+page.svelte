@@ -206,24 +206,26 @@
         <table class="table table-bordered" style="width: 100% !important;">
             <thead>
                 <tr>
-                    <th>Class ID</th>
+                    <th>Grades</th>
                     <th>Subject Code</th>
                     <th>Subject Title</th>
+                    <th>Class ID</th>
                     <th>Year</th>
                     <th>Semester</th>
                     <!-- <th>Teacher ID</th>
                     <th>Created</th>
                     <th>Updated</th> -->
                     <th>Status</th>
-                    <th>Grades</th>
+                   
                 </tr>
             </thead>
             <tbody>
                 {#each classes as classlist}
                 <tr>
-                    <td>{classlist.classid}</td>
+                    <td><a href={`/Teacher/${classlist.classid}`}>SELECT</a></td>                 
                     <td>{classlist.subjectcode}</td>
                     <td>{classlist.Subjectitle.title}</td>
+                    <td>{classlist.classid}</td>
                     <td>{classlist.year}</td>
                     <td>{classlist.semester}</td>
                     <!-- <td>{classlist.teacherid}</td>
@@ -236,7 +238,7 @@
                             <p class="badge-lg text-center text-bg-danger">Inactive</p>
                         {/if}
                     </td>
-                    <td><a href={`/Teacher/${classlist.classid}`}>SELECT</a></td>
+                  
                 </tr>
                 {/each}
             </tbody>
@@ -249,28 +251,30 @@
                 <table class="table table-bordered" style="width: 100% !important;">
                 <thead>
                     <tr>
-                        <th>Class ID</th>
+                        <th>Grades</th>
                         <th>Subject Code</th>
                         <th>Subject Title</th>
+                        <th>Class ID</th>
                         <th>Year</th>
                         <th>Semester</th>
-                        <th>Teacher ID</th>
+                        <!-- <th>Teacher ID</th>
                         <th>Created</th>
-                        <th>Updated</th>
+                        <th>Updated</th> -->
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {#each filteredClasses as classlist}
                     <tr>
-                        <td>{classlist.classid}</td>
+                        <td><a href={`/Teacher/${classlist.classid}`}>SELECT</a></td>                 
                         <td>{classlist.subjectcode}</td>
                         <td>{classlist.Subjectitle.title}</td>
+                        <td>{classlist.classid}</td>
                         <td>{classlist.year}</td>
                         <td>{classlist.semester}</td>
-                        <td>{classlist.teacherid}</td>
+                        <!-- <td>{classlist.teacherid}</td>
                         <td>{classlist.created}</td>
-                        <td>{classlist.updated}</td>
+                        <td>{classlist.updated}</td> -->
                         <td>
                             {#if classlist.isActive}
                                 <p class="badge-lg text-center text-bg-success">Active</p>

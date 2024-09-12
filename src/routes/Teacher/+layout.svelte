@@ -225,10 +225,10 @@
     
     } */
   
-    .navbar-button{
+    /* .navbar-button{
       outline: none;
       border: none;
-    }
+    } */
   
     .profile{
       width: 40px;
@@ -256,10 +256,10 @@
       color: #FF6100 !important;
     }
   
-    .box{
+    /* .box{
       height: 18px;
       margin-left: 3px;
       width: 18px;
-    }
+    } */
   </style>
   
