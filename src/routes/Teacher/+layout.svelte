@@ -202,9 +202,9 @@
     
     } */
   
-    .dropdown-menu{
+    /* .dropdown-menu{
       border: none !important;
-    }
+    } */
   
     /* .navbar{
       background-color: #001A56;
@@ -213,10 +213,10 @@
       background-color: #001A56;
     }
   
-    .dropdown-item:hover{
+    /* .dropdown-item:hover{
       background-color: transparent !important;
       color: #FF6100 !important;
-    }
+    } */
   
     /* .logo{
     
