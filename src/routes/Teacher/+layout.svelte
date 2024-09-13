@@ -132,7 +132,7 @@
 <div class="app-container flex-grow-1" style="margin-left: 250px; padding-top: 80px;">
     <!-- Card or main body content -->
     <div class="card rounded-0" >
-      <div class="card-body" style="height: 88vh;">
+      <div class="card-body" style="height: 88.5vh;">
         <slot></slot>
       </div>
     </div>
