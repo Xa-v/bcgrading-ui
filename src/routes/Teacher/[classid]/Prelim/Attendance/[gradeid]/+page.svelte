@@ -119,9 +119,9 @@
 
 
       
-      <button class="btn btn-sm btn-outline-secondary "  on:click={() => window.history.back()}>
-        ← 
-      </button>
+      <button class="rounded-0 btn btn-outline-primary d-flex justify-content-center align-items-center mt-2 mb-2" style="height: 25px;" on:click={() => window.history.back()}>
+        ←
+    </button>
       
          <!-- Cards displaying attendance data -->
          <div style="max-height: 50vh; overflow-y: auto; overflow-x: hidden;">
