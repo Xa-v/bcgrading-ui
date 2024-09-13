@@ -75,7 +75,7 @@
               <a class="nav-link rounded-0  text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="false">PRELIM</a>
             </li>
             <li class="nav-item flex-grow-1">
-              <a class="nav-link active disabled  rounded-0  text-center" href={`/Teacher/${classid}/Midterm`} role="tab" aria-selected="false">MIDTERM</a>
+              <a class="nav-link active disabled rounded-0 text-center" href={`/Teacher/${classid}/Midterm`} role="tab" aria-selected="false">MIDTERM</a>
             </li>
             <li class="nav-item flex-grow-1">
               <a class="nav-link rounded-0  text-center"href={`/Teacher/${classid}/Final`} role="tab" aria-selected="false">FINAL</a>
