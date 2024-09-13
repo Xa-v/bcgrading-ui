@@ -94,11 +94,11 @@
               }, 2000);  // 2 seconds delay
           } else {
               const result = await response.json();
-              error = `Failed to add attendance: ${result.message}`;
+              error = `Failed to add participation: ${result.message}`;
               successMessage = '';
           }
       } catch (err) {
-          error = `Error adding attendance: ${err.message}`;
+          error = `Error adding participation: ${err.message}`;
           successMessage = '';
       }
   }
@@ -178,7 +178,7 @@
               </div>
           </div>
 
-          <!-- Form for adding attendance (right side, smaller and aligned) -->
+          <!-- Form for adding participation (right side, smaller and aligned) -->
           <div class="col-md-4">
               <form class="form-inline mt-3 ms-auto" on:submit|preventDefault={handleSubmit} style="width: 90%;">
                   <input type="hidden" name="classid" value={classid} />
