@@ -53,9 +53,10 @@
                 goto('/Registrar');
             } else if (role === 'Teacher') {
                 goto('/Teacher');
-            } else if (role === 'Student') {
-                goto('/Student');
-            } else {
+            } 
+            // else if (role === 'Student') {
+            //     goto('/Student'); } 
+           else {
                 throw new Error('Unknown role');
             }
         } catch (err) {
