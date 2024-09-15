@@ -93,7 +93,7 @@
               }, 2000);  // 2 seconds delay
           } else {
               const result = await response.json();
-              error = `Failed to add attendance: ${result.message}`;
+              error = ` ${result.message}`;
               successMessage = '';
           }
       } catch (err) {

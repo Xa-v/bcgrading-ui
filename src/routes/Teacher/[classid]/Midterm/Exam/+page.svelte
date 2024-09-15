@@ -67,7 +67,7 @@
 
       const token = localStorage.getItem('jwtToken');
       try {
-          const response = await fetch('http://localhost:4000/teacher/addgrade', {
+          const response = await fetch('http://localhost:4000/teacher/addexam', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
