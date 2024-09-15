@@ -102,8 +102,8 @@
 
             // Refresh the page after a short delay (e.g., 1.5 seconds)
             setTimeout(() => {
-                goto(`/Registrar/${classid}/StudentList`, { replaceState: true });
-            }, 1500);
+                goto(`/Registrar/${classid}/StudentList`);
+            }, 1000);
         }
 
         // Handle failures
@@ -137,73 +137,78 @@
             <p class="text-muted mb-0"><strong>Semester: </strong><strong>{classinfo.semester}</strong></p>
             <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</strong></p>
         </div>
+
+    <!-- Nav Tabs as Links -->
+    <ul class="nav nav-tabs rounded-0" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link rounded-0" href={`/Registrar/${classinfo.classid}/StudentList`} role="tab" aria-selected="true">Students List</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  rounded-0 active" href={`/Registrar/${classinfo.classid}/AddStudent`} role="tab" aria-selected="false">Add Student</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link rounded-0" href={`/Registrar/${classinfo.classid}`} role="tab" aria-selected="false">Scores</a>
+        </li>
+    </ul>
+
+    <!-- Add Student Form -->
+    <form on:submit={addStudents}>
+        <input type="hidden" name="classid" value={classid} />  <!-- Hidden classid field -->
+   
+        <div class="mb-3">
+            <h1 class="text-center">Select Students to Add</h1>
+         
+            <!-- Bootstrap Table -->
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Student ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#each students as student}
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="student-{student.id}" value={student.id} on:change={() => toggleStudentSelection(student.id)}>
+                            </div>
+                        </td>
+                        <td>{student.firstName}</td>
+                        <td>{student.lastName}</td>
+                        <td>{student.id}</td>
+                    </tr>
+                    {/each}
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Selected Students</button> 
+
+   
+    </form>
+
+    <!-- Success or Error Messages -->
+    {#if successMessage}
+        <div class="alert alert-success mt-3">{successMessage}</div>
+    {/if}
+
+    {#if error}
+        <div class="alert alert-danger mt-3">{error}</div>
+    {/if}
+
     </div>
 </div>
 
-<!-- Second Card with Nav Tabs as Links -->
-<div class="card rounded-0 shadow-sm mb-4">
+<!-- Second Card with Nav Tab-->
+<!-- <div class="card rounded-0 shadow-sm mb-4">
     <div class="card-body">
-        <!-- Nav Tabs as Links -->
-        <ul class="nav nav-tabs rounded-0" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link rounded-0 border" href={`/Registrar/${classinfo.classid}/StudentList`} role="tab" aria-selected="true">Students List</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link  rounded-0 active" href={`/Registrar/${classinfo.classid}/AddStudent`} role="tab" aria-selected="false">Add Student</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link rounded-0" href={`/Registrar/${classinfo.classid}`} role="tab" aria-selected="false">Scores</a>
-            </li>
-        </ul>
-
-        <!-- Add Student Form -->
-        <form on:submit={addStudents}>
-            <input type="hidden" name="classid" value={classid} />  <!-- Hidden classid field -->
-       
-            <div class="mb-3">
-                <h1 class="text-center">Select Students to Add</h1>
-             
-                <!-- Bootstrap Table -->
-                <table class="table table-bordered table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th scope="col">Select</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Student ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {#each students as student}
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="student-{student.id}" value={student.id} on:change={() => toggleStudentSelection(student.id)}>
-                                </div>
-                            </td>
-                            <td>{student.firstName}</td>
-                            <td>{student.lastName}</td>
-                            <td>{student.id}</td>
-                        </tr>
-                        {/each}
-                    </tbody>
-                </table>
-            </div>
-            <button type="submit" class="btn btn-primary">Add Selected Students</button> 
-
-       
-        </form>
-
-        <!-- Success or Error Messages -->
-        {#if successMessage}
-            <div class="alert alert-success mt-3">{successMessage}</div>
-        {/if}
-
-        {#if error}
-            <div class="alert alert-danger mt-3">{error}</div>
-        {/if}
+    
     </div>
-</div>
+</div> -->
+
+
 {/if}
 
 {#if error}
@@ -211,3 +216,20 @@
     {error}
   </div>
 {/if}
+
+
+<style>
+    .nav-link:hover {
+        background-color: #001A56 !important; /* Bootstrap primary color or any custom color */
+        color: rgb(255, 255, 255) !important; /* Make the text white when hovered */
+        transition: background-color 0.2s ease-in-out !important; /* Smooth transition */
+        
+    }
+
+    .active {
+        background-color: #001A56 !important; /* Bootstrap primary color or any custom color */
+        color: rgb(255, 255, 255) !important; /* Make the text white when hovered */
+  
+        
+    }
+  </style>

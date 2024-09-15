@@ -12,8 +12,8 @@
     $: ({ classid } = $page.params);
 
     onMount(async () => {
-
-       // Import Bootstrap JS
+    
+ 
        await import('bootstrap/dist/js/bootstrap.bundle.min.js');
 
         const token = localStorage.getItem('jwtToken');
@@ -44,9 +44,9 @@
 
 {#if classinfo}
 <div class="mb-3">
-    <button class="btn btn-sm btn-outline-secondary " on:click={() => window.history.back()}>
+    <a class="btn btn-sm btn-outline-secondary " href={`/Registrar/ClassList`}>
       ← 
-    </button>
+    </a>
   </div>
     <!-- Card with Class Info -->
     <div class="card rounded-0 shadow-sm mb-2">
@@ -61,35 +61,33 @@
             <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName} </strong> </p>
           </div>
         
-      </div>
-    </div>
 
-
-
-    <!-- Second Card with Nav Tabs as Links -->
-<div class="card rounded-0 shadow-sm mb-4">
-    <div class="card-body">
-      <!-- Nav Tabs as Links -->
       <ul class="nav nav-tabs rounded-0 " id="myTab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link rounded-0 border" href={`/Registrar/${classinfo.classid}/StudentList`}  role="tab" aria-selected="true">Students List</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link rounded-0" href={`/Registrar/${classinfo.classid}/AddStudent`} role="tab" aria-selected="false">Add Student</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link rounded-0" href={`/Registrar/${classinfo.classid}`} role="tab" aria-selected="false">Scores</a>
-        </li>
-      </ul>
+          <li class="nav-item">
+            <a class="nav-link rounded-0 " href={`/Registrar/${classid}/StudentList`} role="tab" aria-selected="false">Students List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded-0" href={`/Registrar/${classid}/AddStudent`} role="tab" aria-selected="false">Add Student</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active disabled rounded-0" href={`/Registrar/${classid}`} role="tab" aria-selected="true">Scores</a>
+          </li>
+        </ul>
 
 
 
-
-
-
+      </div>
 
     </div>
-  </div>
+
+
+
+    <!-- Second Card with Nav Tabs -->
+    <!-- <div class="card rounded-0 shadow-sm mb-4">
+      <div class="card-body">
+    
+    </div>
+  </div> -->
 {/if}
 
 {#if error}
@@ -97,3 +95,18 @@
     {error}
   </div>
 {/if}
+
+
+<style>
+  .nav-link:hover {
+      background-color: #001A56 !important; /* Bootstrap primary color or any custom color */
+      color: rgb(255, 255, 255) !important; /* Make the text white when hovered */
+      transition: background-color 0.2s ease-in-out !important; /* Smooth transition */
+      
+  }
+
+  .active {
+        background-color: #001A56 !important; /* Make the background of navtab blue when active */
+        color: rgb(255, 255, 255) !important; /* Make the text white when active */
+    }
+</style>
