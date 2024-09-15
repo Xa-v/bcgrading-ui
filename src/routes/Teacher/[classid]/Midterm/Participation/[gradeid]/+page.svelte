@@ -181,4 +181,8 @@
         transition: background-color 0.2s ease-in-out !important; /* Smooth transition */
         
     }
+    .active {
+        background-color: #001A56 !important; /* Make the background of navtab blue when active */
+        color: rgb(255, 255, 255) !important; /* Make the text white when active */
+    }
   </style>
