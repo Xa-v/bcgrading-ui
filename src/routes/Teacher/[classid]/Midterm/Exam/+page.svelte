@@ -94,8 +94,11 @@
               }, 2000);  // 2 seconds delay
           } else {
               const result = await response.json();
-              error = `Failed to add Exam: ${result.message}`;
+              error = `${result.message}`;
               successMessage = '';
+              setTimeout(() => {
+                  window.location.reload();
+              }, 1500);  // 2 seconds delay
           }
       } catch (err) {
           error = `Error adding Exam: ${err.message}`;
