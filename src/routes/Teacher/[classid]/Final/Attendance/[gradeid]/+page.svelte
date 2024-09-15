@@ -7,7 +7,7 @@
 
     let classinfo = [];
     let attendancemidterm = [];
-    let attendancescoresfinal = [];
+    let attendancescoresmidterm = [];
     let error = '';
     let userRole = '';
     
@@ -56,7 +56,7 @@
             });
 
             if (attendancescores.ok) {
-                attendancescoresfinal = await attendancescores.json();
+                attendancescoresmidterm = await attendancescores.json();
             } else {
                 error = `Failed to fetch attendancescores: ${attendancescores.statusText}`;
             }
@@ -142,7 +142,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#each attendancescoresfinal as attendance}
+                    {#each attendancescoresmidterm as attendance}
                     <tr>
                         <!-- <td>{attendance.gradeid}</td> -->
                         <td>{attendance.term}</td>
