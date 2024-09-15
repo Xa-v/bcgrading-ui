@@ -6,7 +6,6 @@
     import { goto } from '$app/navigation';
 
     let classinfo = [];
-    let attendancemidterm = [];
     let attendancescoresmidterm = [];
     let error = '';
     let userRole = '';
@@ -24,6 +23,7 @@
       
             const decodedToken = jwtDecode(token);
             userRole = decodedToken.role;  // Save userRole for later use
+            await fetchClassAndAttendanceData();
 
             // Fetch the years if the user is authorized
             const classdetails = await fetch(`http://localhost:4000/registrar/classinfo/${classid}`, {
@@ -38,17 +38,6 @@
                 error = `Failed to fetch classdetails: ${classdetails.statusText}`;
             }
 
-            // const prelimsattendance = await fetch(`http://localhost:4000/teacher/Prelim/Attendance/${classid}`, {
-            //     headers: {
-            //         'Authorization': `Bearer ${token}` // Include JWT token
-            //     }
-            // });
-
-            // if (prelimsattendance.ok) {
-            //     attendanceprelim = await prelimsattendance.json();
-            // } else {
-            //     error = `Failed to fetch prelimsattendance: ${prelimsattendance.statusText}`;
-            // }
             const attendancescores = await fetch(`http://localhost:4000/teacher/getgradelist/${gradeid}`, {
                 headers: {
                     'Authorization': `Bearer ${token}` // Include JWT token
@@ -64,7 +53,66 @@
        
     });
 
+     // Fetch class and attendance data
+     async function fetchClassAndAttendanceData() {
+        const token = localStorage.getItem('jwtToken');
+        const decodedToken = jwtDecode(token);
+        userRole = decodedToken.role;  // Save userRole for later use
+        try {
+            // Fetch class details
+            const classdetails = await fetch(`http://localhost:4000/registrar/classinfo/${classid}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (classdetails.ok) {
+                classinfo = await classdetails.json();
+            } else {
+                throw new Error('Failed to fetch class details');
+            }
 
+            // Fetch attendance scores
+            const attendancescores = await fetch(`http://localhost:4000/teacher/getgradelist/${gradeid}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (attendancescores.ok) {
+                attendancescoresmidterm = await attendancescores.json();
+            } else {
+                throw new Error('Failed to fetch attendance scores');
+            }
+        } catch (err) {
+            error = err.message;
+        }
+     }
+
+     
+    // Function to handle updating attendanceStatus
+    async function updateAttendanceStatus(scoreid, newStatus) {
+        const token = localStorage.getItem('jwtToken');
+        
+        try {
+            const response = await fetch(`http://localhost:4000/teacher/updateattendance/${scoreid}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ attendanceStatus: newStatus })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result.message);
+                await fetchClassAndAttendanceData();
+            } else {
+                console.error('Failed to update attendance status.');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    }
 </script>
 
 {#if classinfo}
@@ -119,9 +167,12 @@
 
 
       
-      <button class="rounded-0 btn btn-outline-primary d-flex justify-content-center align-items-center mt-2 mb-2" style="height: 25px;" on:click={() => window.history.back()}>
-        ←
-    </button>
+      <div class="d-flex align-items-center">
+        <button class="rounded-0 btn btn-outline-primary d-flex justify-content-center align-items-center mt-2 mb-2" style="height: 25px;" on:click={() => window.history.back()}>
+            ←
+        </button>
+        <p class="mb-0 ms-3"> <strong>PRESENT = 10 | LATE = 7 | EXCUSED = 5 | ABSENT KAY = 0 F***YOU MGA SIG ABSENT </strong>  </p>
+    </div>
       
          <!-- Cards displaying attendance data -->
          <div style="max-height: 50vh; overflow-y: auto; overflow-x: hidden;">
@@ -130,10 +181,11 @@
                 <thead class="table-light">
                     
                     <tr>
-                   
+                    <!-- <th scope="col">Score ID</th> -->
                         <!-- <th scope="col">Grade ID</th> -->
                         <th scope="col">Term</th>
                         <th scope="col">Score Type</th>
+                        <th scope="col">Attendance Status</th>
                         <th scope="col">Score</th>
                         <th scope="col">Perfect Score</th>
                         <th scope="col">Last Name</th>
@@ -144,9 +196,24 @@
                 <tbody>
                     {#each attendancescoresmidterm as attendance}
                     <tr>
-                        <!-- <td>{attendance.gradeid}</td> -->
+                      <!-- <td>{attendance.scoreid}</td>
+                        <td>{attendance.gradeid}</td> -->
                         <td>{attendance.term}</td>
                         <td>{attendance.scoretype}</td>
+                        <td>
+                            <select
+                                class="form-select border rounded-0"
+                                class:border-danger="{attendance.attendanceStatus === ''}"
+                                class:border-success="{attendance.attendanceStatus !== ''}"
+                                bind:value={attendance.attendanceStatus}
+                                on:change={(e) => updateAttendanceStatus(attendance.scoreid, e.target.value)}
+                            >
+                                <option value="Present">Present</option>
+                                <option value="Absent">Absent</option>
+                                <option value="Late">Late</option>
+                                <option value="Excused">Excused</option>
+                            </select>
+                        </td>
                         <td>{attendance.score}</td>
                         <td>{attendance.perfectscore}</td>
                         <td>{attendance.Studentlist?.studentinfo?.lastName}</td>
