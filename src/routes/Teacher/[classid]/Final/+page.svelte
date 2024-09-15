@@ -61,51 +61,54 @@
           <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName} </strong> </p>
         </div>
       
+
+           <!-- Nav Tabs as Links -->
+           <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
+            <li class="nav-item flex-grow-1">
+              <a class="nav-link rounded-0  text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="false">PRELIM</a>
+            </li>
+            <li class="nav-item flex-grow-1">
+              <a class="nav-link rounded-0 text-center " href={`/Teacher/${classid}/Midterm`} role="tab" aria-selected="false">MIDTERM</a>
+            </li>
+            <li class="nav-item flex-grow-1">
+              <a class="nav-link rounded-0  text-center active disabled"href={`/Teacher/${classid}/Final`} role="tab" aria-selected="false">FINAL</a>
+            </li>
+          </ul>
+  
+  
+          <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
+            <li class="nav-item flex-grow-1">
+                <a class="nav-link  rounded-0 border text-center" href={`/Teacher/${classid}/Final/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
+            </li>
+            <li class="nav-item flex-grow-1">
+                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Participation`} role="tab" aria-selected="false">Participation</a>
+            </li>
+            <li class="nav-item flex-grow-1">
+                <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Quiz`} role="tab" aria-selected="false">QUIZ</a>
+            </li>
+            <li class="nav-item flex-grow-1">
+              <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Activity-Project`} role="tab" aria-selected="false">ACTIVITY/PROJECT</a>
+          </li>
+          <li class="nav-item flex-grow-1">
+            <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Exam`} role="tab" aria-selected="false">EXAM</a>
+        </li>
+        </ul>
+
     </div>
   </div>
 
 
 
   <!-- Second Card with Nav Tabs as Links -->
-  <div class="card rounded-0 shadow-sm mb-4">
+  <!-- <div class="card rounded-0 shadow-sm mb-4">
       <div class="card-body">
-        <!-- Nav Tabs as Links -->
-        <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
-          <li class="nav-item flex-grow-1">
-            <a class="nav-link rounded-0  text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="false">PRELIM</a>
-          </li>
-          <li class="nav-item flex-grow-1">
-            <a class="nav-link rounded-0 text-center " href={`/Teacher/${classid}/Midterm`} role="tab" aria-selected="false">MIDTERM</a>
-          </li>
-          <li class="nav-item flex-grow-1">
-            <a class="nav-link rounded-0  text-center active disabled"href={`/Teacher/${classid}/Final`} role="tab" aria-selected="false">FINAL</a>
-          </li>
-        </ul>
-
-
-        <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
-          <li class="nav-item flex-grow-1">
-              <a class="nav-link  rounded-0 border text-center" href={`/Teacher/${classid}/Final/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
-          </li>
-          <li class="nav-item flex-grow-1">
-              <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Participation`} role="tab" aria-selected="false">Participation</a>
-          </li>
-          <li class="nav-item flex-grow-1">
-              <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Quiz`} role="tab" aria-selected="false">QUIZ</a>
-          </li>
-          <li class="nav-item flex-grow-1">
-            <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Activity-Project`} role="tab" aria-selected="false">ACTIVITY/PROJECT</a>
-        </li>
-        <li class="nav-item flex-grow-1">
-          <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Exam`} role="tab" aria-selected="false">EXAM</a>
-      </li>
-      </ul>
+     
 
 
 
 
       </div>
-    </div>
+    </div> -->
     
 {/if}
 

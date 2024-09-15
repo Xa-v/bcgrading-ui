@@ -61,18 +61,6 @@
             <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName} </strong> </p>
           </div>
         
-
-         
-
-      </div>
-    </div>
-
-
-
-    <!-- Second Card with Nav Tabs as Links -->
-    <div class="card rounded-0 shadow-sm mb-4">
-        <div class="card-body">
-          <!-- Nav Tabs as Links -->
           <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
             <li class="nav-item flex-grow-1">
               <a class="nav-link rounded-0 border text-center bg-light" href={`${classid}/Prelim`} role="tab" aria-selected="false">PRELIM</a>
@@ -84,8 +72,19 @@
               <a class="nav-link rounded-0 border text-center bg-light" href={`${classid}/Final`} role="tab" aria-selected="false">FINAL</a>
             </li>
           </ul>
-        </div>
+         
+
       </div>
+    </div>
+
+
+
+    <!-- Second Card with Nav Tabs as Links -->
+    <!-- <div class="card rounded-0 shadow-sm mb-4">
+        <div class="card-body">
+
+        </div>
+      </div> -->
       
 {/if}
 
