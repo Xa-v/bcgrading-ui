@@ -116,7 +116,7 @@
         </li>
         <li class="nav-item d-flex align-items-center gap-4">
             <a class="nav-link active text-white" href="/Teacher/MyClass">
-              <img src="/src/lib/images/home.svg" alt="">
+              <img src="/src/lib/images/th-large.svg" alt="" style="width: 20px; height: 20px;">
               My Classes
             </a>
           </li>

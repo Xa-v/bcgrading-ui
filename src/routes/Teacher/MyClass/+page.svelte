@@ -191,7 +191,7 @@
 
 
 {#if classes.length > 0}
-    <h1 class="m-2">Teacher:  {classes[0].TeacherInfo?.firstName} {classes[0].TeacherInfo?.lastName}</h1>
+    <h3 class="m-2 py-4">Teacher:  {classes[0].TeacherInfo?.firstName} {classes[0].TeacherInfo?.lastName}</h3>
 {/if}
 
 

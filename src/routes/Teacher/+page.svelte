@@ -141,8 +141,7 @@ function showConfirmLogout() {
         background-color: #f44336; /* Red for No */
         color: white;
     }
-</style> -->
-
-
+</style> 
+-->
 <h1>Teacher Dashboard</h1>
-<p>Welcome, Teacher!</p>
+<p>Welcome, Teacher!</p> 

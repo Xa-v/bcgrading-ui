@@ -72,7 +72,7 @@
             <!-- Nav Tabs as Links -->
             <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
                 <li class="nav-item flex-grow-1">
-                    <a class="nav-link active disabled rounded-0  text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="true">PRELIM</a>
+                    <a class="nav-link active rounded-0  text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="true">PRELIM</a>
                 </li>
                 <li class="nav-item flex-grow-1">
                     <a class="nav-link rounded-0  text-center" href={`/Teacher/${classid}/Midterm`} role="tab" aria-selected="false">MIDTERM</a>
