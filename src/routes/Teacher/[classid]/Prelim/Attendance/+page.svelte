@@ -244,4 +244,8 @@
     .acard:hover {
         border-color: #007bff !important; /* Blue border on hover */
     }
+    .active {
+        background-color: #001A56 !important; /* Make the background of navtab blue when active */
+        color: rgb(255, 255, 255) !important; /* Make the text white when active */
+    }
   </style>
