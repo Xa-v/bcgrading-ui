@@ -84,7 +84,7 @@
 
             <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
               <li class="nav-item flex-grow-1">
-                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
+                <a class="nav-link active disabled rounded-0 border text-center" href={`/Teacher/${classid}/Final/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
             </li>
             <li class="nav-item flex-grow-1">
                 <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Participation`} role="tab" aria-selected="false">Participation</a>

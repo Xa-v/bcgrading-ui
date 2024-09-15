@@ -87,8 +87,8 @@
                 <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
             </li>
             <li class="nav-item flex-grow-1">
-                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Participation`} role="tab" aria-selected="false">Participation</a>
-            </li>
+                <a class="nav-link rounded-0 active disabled border text-center" href={`/Teacher/${classid}/Final/Participation`} role="tab" aria-selected="false">Participation</a>
+            </li> 
             <li class="nav-item flex-grow-1">
                 <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Quiz`} role="tab" aria-selected="false">QUIZ</a>
             </li>

@@ -88,12 +88,12 @@
             </li>
             <li class="nav-item flex-grow-1">
                 <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Participation`} role="tab" aria-selected="false">Participation</a>
-            </li>
+            </li> 
             <li class="nav-item flex-grow-1">
                 <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Quiz`} role="tab" aria-selected="false">QUIZ</a>
             </li>
             <li class="nav-item flex-grow-1">
-              <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Activity-Project`} role="tab" aria-selected="false">ACTIVITY/PROJECT</a>
+              <a class="nav-link rounded-0 border active disabled text-center" href={`/Teacher/${classid}/Final/Activity-Project`} role="tab" aria-selected="false">ACTIVITY/PROJECT</a>
           </li>
           <li class="nav-item flex-grow-1">
             <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Exam`} role="tab" aria-selected="false">EXAM</a>
