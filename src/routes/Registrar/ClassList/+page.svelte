@@ -195,8 +195,9 @@
         <table class="table table-bordered" style="width: 100% !important;">
             <thead>
                 <tr>
+                    <th class="text-center">View Class</th>
                     <th>Class ID</th>
-                    <th>Subject Code</th>
+                    <th >Subject Code</th>
                     <th>Subject Title</th>
                     <th>Year</th>
                     <th>Semester</th>
@@ -205,18 +206,21 @@
                     <!-- <th>Created</th>
                     <th>Updated</th> -->
                     <th>Status</th>
-                    <th>View Class Info</th>
+                   
                 </tr>
             </thead>
             <tbody>
                 {#each classes as classlist}
                 <tr>
-                    <td>{classlist.classid}</td>
-                    <td>{classlist.subjectcode}</td>
+                    <td>
+                        <a class="btn btn-outline-primary rounded-0 w-100" href={`/Registrar/${classlist.classid}`}>Select</a>
+                    </td>
+                    <td class="text-center">{classlist.classid}</td>
+                    <td >{classlist.subjectcode}</td>
                     <td>{classlist.Subjectitle.title}</td>
                     <td>{classlist.year}</td>
                     <td>{classlist.semester}</td>
-                    <td>{classlist.teacherid}</td>
+                    <td class="text-center">{classlist.teacherid}</td>
                     <td>{classlist.TeacherInfo.firstName} {classlist.TeacherInfo.lastName}</td>
                     <!-- <td>{classlist.created}</td>
                     <td>{classlist.updated}</td> -->
@@ -227,7 +231,7 @@
                             <p class="badge-lg text-center text-bg-danger">Inactive</p>
                         {/if}
                     </td>
-                    <td> <a href={`/Registrar/${classlist.classid}`}> select</a></td>
+                    
                 </tr>
                 {/each}
             </tbody>
