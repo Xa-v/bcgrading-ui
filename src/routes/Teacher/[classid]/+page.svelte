@@ -6,6 +6,7 @@
     import { goto } from '$app/navigation';
 
     let classinfo = [];
+    let students = [];
     let error = '';
     let userRole = '';
     
@@ -37,9 +38,25 @@
             }
 
 
-       
+
+                // Fetch the students list
+        const studentlist = await fetch(`http://localhost:4000/teacher/studentlist/${classid}`, {
+            headers: {
+                'Authorization': `Bearer ${token}` // Include JWT token
+            }
+        });
+
+        if (studentlist.ok) {
+            const studentData = await studentlist.json();
+            // Check if the data is properly structured and log it for debugging
+            // console.log("Fetched students:", studentData);
+            students = studentData.students; // Ensure correct path to student data
+        } else {
+            error = `Failed to fetch studentlist: ${studentlist.statusText}`;
+        }
     });
 
+       
 </script>
 
 {#if classinfo}
@@ -73,6 +90,43 @@
             </li>
           </ul>
          
+
+          {#if students && Array.isArray(students) && students.length > 0}
+
+          <!-- Display Students List Inside a Bordered Bootstrap Table -->
+
+              <table class="table table-striped table-hover border-dark">
+                  <thead >
+                    <tr>
+                      <td colspan="3" class="p-2"><strong>Students enrolled for this class </strong></td>
+                    </tr>
+                      <tr>
+                          <th scope="col" class="p-2 ">Student ID</th>
+                          <th scope="col" class="p-2 ">Last Name</th>
+                          <th scope="col" class="p-2 ">First Name</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {#each students as student}
+                          <tr>
+                              <td class="">{student.studentinfo?.id}</td>
+                              <td class="">{student.studentinfo?.lastName}</td>
+                              <td class="">{student.studentinfo?.firstName}</td>
+                          </tr>
+                      {/each}
+                  </tbody>
+              </table>
+        
+          
+          {:else} 
+          
+          <h1 class="alert mt-3">No students available</h1>
+          
+          {/if}
+
+
+
+
 
       </div>
     </div>

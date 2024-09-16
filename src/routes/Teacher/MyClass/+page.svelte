@@ -222,7 +222,7 @@
             <tbody>
                 {#each classes as classlist}
                 <tr>
-                    <td><a href={`/Teacher/${classlist.classid}`}>SELECT</a></td>                 
+                    <td><a class="btn btn-outline-primary rounded-0 w-100" href={`/Teacher/${classlist.classid}`}>SELECT</a></td>                 
                     <td>{classlist.subjectcode}</td>
                     <td>{classlist.Subjectitle.title}</td>
                     <td>{classlist.classid}</td>
