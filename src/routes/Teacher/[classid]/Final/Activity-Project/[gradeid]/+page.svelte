@@ -45,7 +45,7 @@
             });
 
             if (activityprojectscores.ok) {
-                activityprojectscoresprelim = await activityprojectscores.json();
+                activityprojectscoresfinals = await activityprojectscores.json();
             } else {
                 error = `Failed to fetch activityprojectscores: ${activityprojectscores.statusText}`;
             }
