@@ -140,7 +140,7 @@
         </div>
         
         <!-- Table displaying attendance data with editable attendanceStatus -->
-        <div style="max-height: 50vh; overflow-y: auto; overflow-x: hidden;">
+        <div style="max-height: 42vh; overflow-y: auto; overflow-x: hidden;">
             <table class="table table-bordered table-hover">
                 <thead class="table-light">
                     <tr>
