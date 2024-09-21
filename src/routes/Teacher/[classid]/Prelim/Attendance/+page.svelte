@@ -154,7 +154,9 @@
                 <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Exam`} role="tab" aria-selected="false">EXAM</a>
             </li>
         </ul>
-
+        <a class="rounded-0 btn btn-outline-primary d-flex justify-content-center align-items-center mt-2 mb-2" style="height: 25px;width: 40px;" href={`/Teacher/${classid}/Prelim`} >
+            ←
+        </a>
         <!-- Container Row -->
         <div class="row">
             <!-- Cards displaying attendance data (left side, scrollable) -->
