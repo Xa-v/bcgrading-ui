@@ -52,12 +52,11 @@
 
 <!-- Display class info and navigation links -->
 {#if classinfo}
-  <div class="mb-3">
-      <a class="btn btn-sm btn-outline-secondary" href="/Teacher/MyClass">
-        ← 
-      </a>
+<div class="mb-3">
+    <a class="btn btn-sm btn-outline-secondary rounded-0"  href={`/Teacher/MyClass`}>
+      ← go back to classlists 
+    </a>
   </div>
-
   <!-- Card with Class Info -->
   <div class="card rounded-0 shadow-sm mb-2">
       <div class="card-body">
@@ -135,7 +134,7 @@
                     {#each students as student}
                         {#each student.ComputedGradelists as grade}
                             <tr>
-                                <td>{student.studentinfo.lastName},{student.studentinfo.firstName}</td>
+                                <td>{student.studentinfo.lastName} {student.studentinfo.firstName}</td>
                              
                                 <td>{grade.term}</td>
                                 <td>{grade.totalattendance}</td>

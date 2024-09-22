@@ -61,8 +61,8 @@
 
 {#if classinfo}
 <div class="mb-3">
-    <a class="btn btn-sm btn-outline-secondary "  href={`/Teacher/MyClass`}>
-      ← 
+    <a class="btn btn-sm btn-outline-secondary rounded-0"  href={`/Teacher/MyClass`}>
+      ← go back to classlists 
     </a>
   </div>
     <!-- Card with Class Info -->
