@@ -127,6 +127,9 @@
 
       <!-- Nav Tabs as Links -->
       <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
+        <li class="nav-item flex-grow-1">
+            <a class="nav-link rounded-0 text-center bg-light" href={`/Teacher/${classid}`} role="tab" aria-selected="false">Grades</a>
+          </li>
           <li class="nav-item flex-grow-1">
               <a class="nav-link rounded-0 text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="true">PRELIM</a>
           </li>

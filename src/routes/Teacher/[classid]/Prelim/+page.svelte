@@ -115,9 +115,9 @@
                         <th>Name</th>
                   
                         <th>Term</th>
-                        <th>Total Attendance Score</th>
+                        <!-- <th>Total Attendance Score</th>
                         <th>Perfect Attendance Score</th>
-                        <th>Attendance 5%</th>
+                        <th>Attendance 5%</th> -->
                         <!-- <th>Total Participation Score</th>
                         <th>Perfect Participation Score</th>
                         <th>Participation 5%</th>
@@ -141,9 +141,9 @@
                                 <td>{student.studentinfo.lastName} {student.studentinfo.firstName}</td>
                              
                                 <td>{grade.term}</td>
-                                <td>{grade.totalattendance}</td>
+                                <!-- <td>{grade.totalattendance}</td>
                                 <td>{grade.perfectattendancescore}</td>
-                                <td>{grade.attendance5percent}</td>
+                                <td>{grade.attendance5percent}</td> -->
                                 <!-- <td>{grade.totalparticipation}</td>
                                 <td>{grade.perfectparticipationscore}</td>
                                 <td>{grade.participation5percent}</td>
