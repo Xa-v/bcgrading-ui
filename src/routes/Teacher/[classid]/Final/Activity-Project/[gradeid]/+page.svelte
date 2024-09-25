@@ -58,9 +58,7 @@
 
 {#if classinfo}
 <div class="mb-3">
-    <button class="btn btn-sm btn-outline-secondary"  on:click={() => window.history.back()}>
-      ← 
-    </button>
+   
   </div>
     <!-- Card with Class Info -->
     <div class="card rounded-0 shadow-sm mb-2">
@@ -74,6 +72,10 @@
             <p class="text-muted mb-0"><strong>Semester: </strong><strong>{classinfo.semester}</strong></p>
             <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName} </strong> </p>
           </div>
+
+          <a class="btn btn-sm rounded-0 btn-primary  p-2 mb-3"  href={`/Teacher/${1}/Final/Activity-Project`}>
+            ←  go back to Activity Project 
+          </a>
         
            <!-- Nav Tabs as Links -->
            <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
@@ -107,9 +109,6 @@
       </ul>
 
 
-      <button class="rounded-0 btn btn-outline-primary d-flex justify-content-center align-items-center mt-2 mb-2" style="height: 25px;" on:click={() => window.history.back()}>
-        ←
-    </button>
     
       
          <!-- Cards displaying attendance data -->

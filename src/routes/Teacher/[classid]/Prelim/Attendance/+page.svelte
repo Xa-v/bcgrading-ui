@@ -106,9 +106,9 @@
 
 {#if classinfo}
 <div class="mb-3">
-    <a class="btn btn-sm btn-outline-secondary" href={`/Teacher/MyClass`}>
-      ← 
-    </a>
+    <!-- <a class="btn btn-sm btn-outline-secondary rounded-0"  href={`/Teacher/MyClass`}>
+        ← go back to classlists 
+      </a> -->
 </div>
 
 <!-- Card with Class Info -->
@@ -123,6 +123,10 @@
             <p class="text-muted mb-0"><strong>Semester: </strong><strong>{classinfo.semester}</strong></p>
             <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</strong></p>
         </div>
+
+        <a class="btn btn-sm rounded-0 btn-primary  p-2 mb-3"  href={`/Teacher/MyClass`}>
+            ←  go back to classlists 
+          </a>
 
         <!-- Nav Tabs as Links -->
         <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
@@ -157,9 +161,7 @@
                 <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Exam`} role="tab" aria-selected="false">EXAM</a>
             </li>
         </ul>
-        <a class="rounded-0 btn btn-outline-primary d-flex justify-content-center align-items-center mt-2 mb-2" style="height: 25px;width: 40px;" href={`/Teacher/${classid}/Prelim`} >
-            ←
-        </a>
+     
         <!-- Container Row -->
         <div class="row">
             <!-- Cards displaying attendance data (left side, scrollable) -->

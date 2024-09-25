@@ -107,14 +107,12 @@
 
 {#if classinfo}
 <div class="mb-3">
-  <a class="btn btn-sm btn-outline-secondary" href={`/Teacher/MyClass`}>
-    ← 
-  </a>
+   
 </div>
 
 <!-- Card with Class Info -->
 <div class="card rounded-0 shadow-sm mb-2">
-  <div class="card-body">
+  <div class="card-body ">
       <!-- Header of Class Info -->
       <h2 class="card-title mb-3">
           {classinfo.Subjectitle?.title} ({classinfo.subjectcode})
@@ -125,6 +123,9 @@
           <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</strong></p>
       </div>
 
+      <a class="btn btn-sm rounded-0 btn-primary  p-2 mb-3"  href={`/Teacher/MyClass`}>
+        ←  go back to classlists 
+      </a>
       <!-- Nav Tabs as Links -->
       <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
           <li class="nav-item flex-grow-1">

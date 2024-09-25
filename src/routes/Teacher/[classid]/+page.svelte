@@ -75,9 +75,7 @@
 
 {#if classinfo}
 <div class="mb-3">
-    <a class="btn btn-sm btn-outline-secondary rounded-0"  href="/Teacher/MyClass">
-      ← go back to classlists 
-    </a>
+   
 </div>
 
 <!-- Card with Class Info -->
@@ -89,6 +87,10 @@
       <p class="text-muted mb-0"><strong>Semester:</strong> {classinfo.semester}</p>
       <p class="text-muted"><strong>Teacher:</strong> {classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</p>
     </div>
+
+    <a class="btn btn-sm rounded-0 btn-primary  p-2 mb-3"  href={`/Teacher/MyClass`}>
+      ←  go back to classlists 
+    </a>
 
     <ul class="nav nav-tabs rounded-0" id="myTab" role="tablist">
       <li class="nav-item flex-grow-1">
