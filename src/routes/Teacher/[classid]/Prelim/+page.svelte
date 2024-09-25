@@ -35,7 +35,7 @@
       }
 
       // Fetch the students list
-      const gradecomputed = await fetch(`http://localhost:4000/teacher/gradesofstudents/${classid}`, {
+      const gradecomputed = await fetch(`http://localhost:4000/teacher/gradesofstudentsprelim/${classid}`, {
           headers: {
               'Authorization': `Bearer ${token}` // Include JWT token
           }
@@ -71,6 +71,9 @@
 
           <!-- Navigation Links -->
           <ul class="nav nav-tabs rounded-0" id="myTab" role="tablist">
+            <li class="nav-item flex-grow-1">
+                <a class="nav-link rounded-0 text-center bg-light" href={`/Teacher/${classid}`} role="tab" aria-selected="false">Grades</a>
+              </li>
               <li class="nav-item flex-grow-1">
                   <a class="nav-link active rounded-0 text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="true">PRELIM</a>
               </li>
@@ -84,6 +87,7 @@
 
           <!-- Sub Navigation Links -->
           <ul class="nav nav-tabs rounded-0" id="myTab" role="tablist">
+          
               <li class="nav-item flex-grow-1">
                   <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
               </li>
