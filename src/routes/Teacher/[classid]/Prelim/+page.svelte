@@ -74,7 +74,7 @@
           <!-- Navigation Links -->
           <ul class="nav nav-tabs rounded-0" id="myTab" role="tablist">
             <li class="nav-item flex-grow-1">
-                <a class="nav-link rounded-0 text-center bg-light" href={`/Teacher/${classid}`} role="tab" aria-selected="false">Grades</a>
+                <a class="nav-link rounded-0 text-center bg-light" href={`/Teacher/${classid}`} role="tab" aria-selected="false">GRADES</a>
               </li>
               <li class="nav-item flex-grow-1">
                   <a class="nav-link active rounded-0 text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="true">PRELIM</a>
@@ -94,7 +94,7 @@
                   <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
               </li>
               <li class="nav-item flex-grow-1">
-                  <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Participation`} role="tab" aria-selected="false">Participation</a>
+                  <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Participation`} role="tab" aria-selected="false">PARTICIPATION</a>
               </li>
               <li class="nav-item flex-grow-1">
                   <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Quiz`} role="tab" aria-selected="false">QUIZ</a>

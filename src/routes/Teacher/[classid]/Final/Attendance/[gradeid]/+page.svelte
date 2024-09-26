@@ -106,6 +106,9 @@
         <!-- Nav Tabs as Links -->
         <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
             <li class="nav-item flex-grow-1">
+                <a class="nav-link rounded-0 text-center bg-light" href={`/Teacher/${classid}`} role="tab" aria-selected="false">GRADES</a>
+              </li>
+            <li class="nav-item flex-grow-1">
                 <a class="nav-link rounded-0 text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="true">PRELIM</a>
             </li>
             <li class="nav-item flex-grow-1">
@@ -118,19 +121,19 @@
 
         <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
             <li class="nav-item flex-grow-1">
-                <a class="nav-link active disabled rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
+                <a class="nav-link active disabled rounded-0 border text-center" href={`/Teacher/${classid}/Final/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
             </li>
             <li class="nav-item flex-grow-1">
-                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Participation`} role="tab" aria-selected="false">Participation</a>
+                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Participation`} role="tab" aria-selected="false">PARTICIPATION</a>
             </li>
             <li class="nav-item flex-grow-1">
-                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Quiz`} role="tab" aria-selected="false">QUIZ</a>
+                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Quiz`} role="tab" aria-selected="false">QUIZ</a>
             </li>
             <li class="nav-item flex-grow-1">
-                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Activity-Project`} role="tab" aria-selected="false">ACTIVITY/PROJECT</a>
+                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Activity-Project`} role="tab" aria-selected="false">ACTIVITY/PROJECT</a>
             </li>
             <li class="nav-item flex-grow-1">
-                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Prelim/Exam`} role="tab" aria-selected="false">EXAM</a>
+                <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Final/Exam`} role="tab" aria-selected="false">EXAM</a>
             </li>
         </ul>
 
@@ -146,23 +149,20 @@
                     <tr>
                         <!-- <th scope="col">Score ID</th>
                         <th scope="col">Grade ID</th> -->
-                        <th scope="col">Term</th>
-                        <th scope="col">Score Type</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Attendance Status</th>
                         <th scope="col">Score</th>
                         <th scope="col">Perfect Score</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Student ID</th>
-                    </tr>
+                        <th scope="col">Score Type</th>
+                        
+                     
                 </thead>
                 <tbody>
                     {#each attendancescoresfinal as attendance}
                     <tr>
                         <!-- <td>{attendance.scoreid}</td>
                         <td>{attendance.gradeid}</td> -->
-                        <td>{attendance.term}</td>
-                        <td>{attendance.scoretype}</td>
+                        <td>{attendance.Studentlist?.studentinfo?.lastName}{attendance.Studentlist?.studentinfo?.firstName}</td>
                         <td>
                             <select
                                 class="form-select border rounded-0"
@@ -180,9 +180,7 @@
                         
                         <td>{attendance.score}</td>
                         <td>{attendance.perfectscore}</td>
-                        <td>{attendance.Studentlist?.studentinfo?.lastName}</td>
-                        <td>{attendance.Studentlist?.studentinfo?.firstName}</td>
-                        <td>{attendance.Studentlist?.studentinfo?.id}</td>
+                        <td>{attendance.scoretype}</td>
                     </tr>
                     {/each}
                 </tbody>

@@ -140,6 +140,9 @@
            <!-- Nav Tabs as Links -->
            <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
             <li class="nav-item flex-grow-1">
+                <a class="nav-link rounded-0 text-center bg-light" href={`/Teacher/${classid}`} role="tab" aria-selected="false">GRADES</a>
+              </li>
+            <li class="nav-item flex-grow-1">
                 <a class="nav-link  rounded-0  text-center" href={`/Teacher/${classid}/Prelim`} role="tab">PRELIM</a>
             </li>
             <li class="nav-item flex-grow-1">
@@ -155,7 +158,7 @@
               <a class="nav-link active disabled rounded-0 border text-center" href={`/Teacher/${classid}/Midterm/Attendance`} role="tab">ATTENDANCE</a>
           </li>
           <li class="nav-item flex-grow-1">
-              <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Midterm/Participation`} role="tab">Participation</a>
+              <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Midterm/Participation`} role="tab">PARTICIPATION</a>
           </li>
           <li class="nav-item flex-grow-1">
               <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Midterm/Quiz`} role="tab">QUIZ</a>

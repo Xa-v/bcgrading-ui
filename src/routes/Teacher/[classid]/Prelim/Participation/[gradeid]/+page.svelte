@@ -131,29 +131,22 @@
                 <thead class="table-light">
                     
                     <tr>
-                        <th scope="col">Score ID</th>
-                        <th scope="col">Grade ID</th>
-                        <th scope="col">Term</th>
-                        <th scope="col">Score Type</th>
+                      
+                        <th scope="col">Name</th>
                         <th scope="col">Score</th>
                         <th scope="col">Perfect Score</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Student ID</th>
+                        <th scope="col">Score Type</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     {#each participationscoresprelim as participation}
                     <tr>
-                        <td>{participation.scoreid}</td>
-                        <td>{participation.gradeid}</td>
-                        <td>{participation.term}</td>
-                        <td>{participation.scoretype}</td>
+                       
+                        <td>{participation.Studentlist?.studentinfo?.lastName}{participation.Studentlist?.studentinfo?.firstName}</td>
                         <td>{participation.score}</td>
                         <td>{participation.perfectscore}</td>
-                        <td>{participation.Studentlist?.studentinfo?.lastName}</td>
-                        <td>{participation.Studentlist?.studentinfo?.firstName}</td>
-                        <td>{participation.Studentlist?.studentinfo?.id}</td>
+                        <td>{participation.scoretype}</td>
                     </tr>
                     {/each}
                 </tbody>

@@ -90,6 +90,9 @@
            <!-- Nav Tabs as Links -->
            <ul class="nav nav-tabs rounded-0 d-flex" id="myTab" role="tablist">
             <li class="nav-item flex-grow-1">
+                <a class="nav-link rounded-0 text-center bg-light" href={`/Teacher/${classid}`} role="tab" aria-selected="false">GRADES</a>
+              </li>
+            <li class="nav-item flex-grow-1">
                 <a class="nav-link  rounded-0  text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="true">PRELIM</a>
             </li>
             <li class="nav-item flex-grow-1">
@@ -105,7 +108,7 @@
               <a class="nav-link  rounded-0 border text-center" href={`/Teacher/${classid}/Final/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
           </li>
           <li class="nav-item flex-grow-1">
-              <a class="nav-link  rounded-0 border text-center" href={`/Teacher/${classid}/Final/Participation`} role="tab" aria-selected="false">Participation</a>
+              <a class="nav-link  rounded-0 border text-center" href={`/Teacher/${classid}/Final/Participation`} role="tab" aria-selected="false">PARTICIPATION</a>
           </li>
           <li class="nav-item flex-grow-1">
               <a class="nav-link active disabled rounded-0 border  text-center" href={`/Teacher/${classid}/Final/Quiz`} role="tab" aria-selected="false">QUIZ</a>
@@ -127,29 +130,19 @@
                 <thead class="table-light">
                     
                     <tr>
-                        <th scope="col">Score ID</th>
-                        <th scope="col">Grade ID</th>
-                        <th scope="col">Term</th>
-                        <th scope="col">Score Type</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Score</th>
                         <th scope="col">Perfect Score</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Student ID</th>
+                        <th scope="col">Score Type</th>
                     </tr>
                 </thead>
                 <tbody>
                     {#each quizscoresmidterm as quiz}
                     <tr>
-                        <td>{quiz.scoreid}</td>
-                        <td>{quiz.gradeid}</td>
-                        <td>{quiz.term}</td>
-                        <td>{quiz.scoretype}</td>
+                        <td>{quiz.Studentlist?.studentinfo?.lastName}{quiz.Studentlist?.studentinfo?.firstName}</td>
                         <td>{quiz.score}</td>
                         <td>{quiz.perfectscore}</td>
-                        <td>{quiz.Studentlist?.studentinfo?.lastName}</td>
-                        <td>{quiz.Studentlist?.studentinfo?.firstName}</td>
-                        <td>{quiz.Studentlist?.studentinfo?.id}</td>
+                        <td>{quiz.scoretype}</td>
                     </tr>
                     {/each}
                 </tbody>
