@@ -123,7 +123,7 @@
     <tbody>
       {#each students as student}
       <tr>
-        <td>{student.studentinfo.firstName} {student.studentinfo.lastName}</td>
+        <td>{student.studentinfo.lastName}, {student.studentinfo.firstName}</td>
         <td>{student.grades.Prelim}</td>
         <td>{student.grades.Midterm}</td>
         <td>{student.grades.Final}</td>

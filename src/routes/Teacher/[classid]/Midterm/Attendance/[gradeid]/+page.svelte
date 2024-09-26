@@ -182,25 +182,28 @@
                 <thead class="table-light">
                     
                     <tr>
+                        <th scope="col">Name</th>
+                        <!-- <th scope="col">First Name</th> -->
                     <!-- <th scope="col">Score ID</th> -->
                         <!-- <th scope="col">Grade ID</th> -->
-                        <th scope="col">Term</th>
-                        <th scope="col">Score Type</th>
+                        <!-- <th scope="col">Term</th>
+                        <th scope="col">Score Type</th> -->
                         <th scope="col">Attendance Status</th>
                         <th scope="col">Score</th>
                         <th scope="col">Perfect Score</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Student ID</th>
+                     
+                        <!-- <th scope="col">Student ID</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     {#each attendancescoresmidterm as attendance}
                     <tr>
+                        <td>{attendance.Studentlist?.studentinfo?.lastName}, {attendance.Studentlist?.studentinfo?.firstName}</td>
+                        <!-- <td></td> -->
                       <!-- <td>{attendance.scoreid}</td>
                         <td>{attendance.gradeid}</td> -->
-                        <td>{attendance.term}</td>
-                        <td>{attendance.scoretype}</td>
+                        <!-- <td>{attendance.term}</td>
+                        <td>{attendance.scoretype}</td> -->
                         <td>
                             <select
                                 class="form-select border rounded-0"
@@ -217,9 +220,8 @@
                         </td>
                         <td>{attendance.score}</td>
                         <td>{attendance.perfectscore}</td>
-                        <td>{attendance.Studentlist?.studentinfo?.lastName}</td>
-                        <td>{attendance.Studentlist?.studentinfo?.firstName}</td>
-                        <td>{attendance.Studentlist?.studentinfo?.id}</td>
+<!--                   
+                        <td>{attendance.Studentlist?.studentinfo?.id}</td> -->
                     </tr>
                     {/each}
                 </tbody>
