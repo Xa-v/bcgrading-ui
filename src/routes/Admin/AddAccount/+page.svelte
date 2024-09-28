@@ -1,6 +1,10 @@
 <script>
+      import 'bootstrap/dist/css/bootstrap.min.css';
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
+    import { page } from '$app/stores';
+    import { jwtDecode } from 'jwt-decode';
+    import { fade } from 'svelte/transition';
 
     let firstName = '';
     let lastName = '';
@@ -11,9 +15,12 @@
     let message = '';
     let successMessage = ''; // For success message
     let errorMessage = ''; // For error message
+    let error = '';
+    let userRole = '';
+    let userID = '';
 
-    const roles = ['Admin', 'Registrar', 'Student', 'Teacher'];
-
+    const roles = ['Admin', 'Registrar', 'Teacher'];
+    // const roles = ['Admin', 'Registrar', 'Student', 'Teacher'];
     async function handleSubmit() {
         if (password !== confirmPassword) {
             message = "Passwords do not match.";
@@ -61,13 +68,56 @@
         }
     }
 
+    function logout() {
+      localStorage.removeItem('jwtToken');  // Clear the JWT token
+      goto('/Login');  // Redirect to the login page immediately
+    }
+  
+      // Use onMount to handle client-side operations
+      onMount(async () => {
+  
+  await import('bootstrap/dist/js/bootstrap.bundle.min.js');
+
+
+ 
+    const token = localStorage.getItem('jwtToken');
+    // const idtoken = jwtDecode(token);
+    //  userID = idtoken.id;
+    // console.log("User ID:", userID);
+
+      if (!token) {               
+            logout();
+                  return;
+              }
+
+              try {
+        const decodedToken = jwtDecode(token);
+        userRole = decodedToken.role;
+        userID = decodedToken.id;
+        console.log("Role:", userRole);
+        console.log("ID:", userID);
+        
+
+        if (userRole !== 'Admin') {
+
+            goto(`/${userRole}`);
+            return;
+        }
+
+      } catch (error) {
+        console.error('Error:', error);
+        logout();
+    }
+
+  
+});
    
 </script>
 
 
-<h4 class="text-center">Add Account</h4>
 
 <div class="row justify-content-center align-items-center h-100">
+    <h4 class="text-center">Add Account</h4>
     <div class="col-4">
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body p-4">
@@ -139,23 +189,7 @@
       </div>
 
 </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         
+  
 </div>
 
 </div>
@@ -163,6 +197,9 @@
 </div>
 
 </div>
+
+
+
 
 
 
@@ -171,5 +208,5 @@
  input:focus::placeholder {
   color: transparent;
 }
-
+ 
 </style>

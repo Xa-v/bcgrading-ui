@@ -37,7 +37,19 @@
                 error = `Failed to fetch classdetails: ${classdetails.statusText}`;
             }
 
+    // Fetch the students list
+    const gradecomputed = await fetch(`http://localhost:4000/teacher/gradesofstudentsmidterm/${classid}`, {
+          headers: {
+              'Authorization': `Bearer ${token}` // Include JWT token
+          }
+      });
 
+      if (gradecomputed.ok) {
+          const data = await gradecomputed.json();
+          students = data.students;  // Update students array
+      } else {
+          error = `Failed to fetch gradecomputed: ${gradecomputed.statusText}`;
+      }
        
     });
 
@@ -98,75 +110,76 @@
             <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Midterm/Exam`} role="tab" aria-selected="false">EXAM</a>
         </li>
         </ul>
+        <div style="max-height: 45vh; overflow-y: auto; overflow-x: hidden;">
+          {#if students && students.length > 0}
+              <!-- Students Table -->
+              <table class="table table-bordered table-hover">
+                  <thead class="table-light">
+                      <tr>
+                          <th>Name</th>
+                    
+                          <th>Term</th>
+                          <!-- <th>Total Attendance Score</th>
+                          <th>Perfect Attendance Score</th>
+                          <th>Attendance 5%</th> -->
+                          <!-- <th>Total Participation Score</th>
+                          <th>Perfect Participation Score</th>
+                          <th>Participation 5%</th>
+                          <th>Total Quiz Score</th>
+                          <th>Perfect Quiz Score</th>
+                          <th>Quiz 15%</th>
+                          <th>Total Activity-Project Score</th>
+                          <th>Perfect Activity-Project Score</th>
+                          <th>Activity-Project 45%</th>
+                          <th>Total Exam Score</th>
+                          <th>Perfect Exam Score</th>
+                          <th>Exam 45%</th> -->
+                          <th>Final Grade</th>
+                          <th>Transmuted Grade</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {#each students as student}
+                          {#each student.ComputedGradelists as grade}
+                              <tr>
+                                  <td>{student.studentinfo.lastName} {student.studentinfo.firstName}</td>
+                               
+                                  <td>{grade.term}</td>
+                                  <!-- <td>{grade.totalattendance}</td>
+                                  <td>{grade.perfectattendancescore}</td>
+                                  <td>{grade.attendance5percent}</td> -->
+                                  <!-- <td>{grade.totalparticipation}</td>
+                                  <td>{grade.perfectparticipationscore}</td>
+                                  <td>{grade.participation5percent}</td>
+                                  <td>{grade.totalquiz}</td>
+                                  <td>{grade.perfectquizscore}</td>
+                                  <td>{grade.quiz15percent}</td>
+                                  <td>{grade.totalactivityproject}</td>
+                                  <td>{grade.perfectactivityprojectscore}</td>
+                                  <td>{grade.activityproject45percent}</td>
+                                  <td>{grade.totalexam}</td>
+                                  <td>{grade.perfectexamscore}</td>
+                                  <td>{grade.exam30percent}</td> -->
+                                  <td>{grade.finalcomputedgrade}</td>
+                                  <td>{grade.transmutedgrade}</td>
+                              </tr>
+                          {/each}
+                      {/each}
+                  </tbody>
+              </table>
+          {:else}
+          <div class="alert alert mt-3">No grades/scores available yet please add scores</div>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+          {/if}
+      </div>
       </div>
     </div>
 
-    <div style="max-height: 45vh; overflow-y: auto; overflow-x: hidden;">
-      {#if students && students.length > 0}
-          <!-- Students Table -->
-          <table class="table table-bordered table-hover">
-              <thead class="table-light">
-                  <tr>
-                      <th>Name</th>
-                
-                      <th>Term</th>
-                      <!-- <th>Total Attendance Score</th>
-                      <th>Perfect Attendance Score</th>
-                      <th>Attendance 5%</th> -->
-                      <!-- <th>Total Participation Score</th>
-                      <th>Perfect Participation Score</th>
-                      <th>Participation 5%</th>
-                      <th>Total Quiz Score</th>
-                      <th>Perfect Quiz Score</th>
-                      <th>Quiz 15%</th>
-                      <th>Total Activity-Project Score</th>
-                      <th>Perfect Activity-Project Score</th>
-                      <th>Activity-Project 45%</th>
-                      <th>Total Exam Score</th>
-                      <th>Perfect Exam Score</th>
-                      <th>Exam 45%</th> -->
-                      <th>Final Grade</th>
-                      <th>Transmuted Grade</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {#each students as student}
-                      {#each student.ComputedGradelists as grade}
-                          <tr>
-                              <td>{student.studentinfo.lastName} {student.studentinfo.firstName}</td>
-                           
-                              <td>{grade.term}</td>
-                              <!-- <td>{grade.totalattendance}</td>
-                              <td>{grade.perfectattendancescore}</td>
-                              <td>{grade.attendance5percent}</td> -->
-                              <!-- <td>{grade.totalparticipation}</td>
-                              <td>{grade.perfectparticipationscore}</td>
-                              <td>{grade.participation5percent}</td>
-                              <td>{grade.totalquiz}</td>
-                              <td>{grade.perfectquizscore}</td>
-                              <td>{grade.quiz15percent}</td>
-                              <td>{grade.totalactivityproject}</td>
-                              <td>{grade.perfectactivityprojectscore}</td>
-                              <td>{grade.activityproject45percent}</td>
-                              <td>{grade.totalexam}</td>
-                              <td>{grade.perfectexamscore}</td>
-                              <td>{grade.exam30percent}</td> -->
-                              <td>{grade.finalcomputedgrade}</td>
-                              <td>{grade.transmutedgrade}</td>
-                          </tr>
-                      {/each}
-                  {/each}
-              </tbody>
-          </table>
-      {:else}
-      <div class="alert alert mt-3">No grades/scores available yet please add scores</div>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-      {/if}
-  </div>
+
 
 
     <!-- Second Card with Nav Tabs as Links -->

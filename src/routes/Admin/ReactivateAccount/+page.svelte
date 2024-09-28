@@ -6,7 +6,7 @@
     let accounts = [];
     let error = '';
     let userRole = '';
-    let showDeleteModal = false;
+    let showRestoremodal = false;
     let accountToRestore = null;
     let accountToRestoreUsername = '';
     let passwordSuccessMessage = '';
@@ -43,7 +43,7 @@
     });
   
 
-    async function openDeleteModal(accountId) {
+    async function openRestoreModal(accountId) {
       accountToRestore = accountId;
       try {
           const response = await fetch(`http://localhost:4000/admin/${accountId}`, {
@@ -60,11 +60,11 @@
       } catch (error) {
           error = `Error fetching account details: ${error.message}`;
       } finally {
-          showDeleteModal = true;
+          showRestoremodal = true;
       }
     }
   
-    async function confirmDelete() {
+    async function confirmRestore() {
       if (accountToRestore) {
           try {
               const response = await fetch(`http://localhost:4000/admin/reactivate/${accountToRestore}`, {
@@ -112,8 +112,8 @@
       }
     }
   
-    function closeDeleteModal() {
-      showDeleteModal = false;
+    function closeRestoreModal() {
+      showRestoremodal = false;
       accountToRestore = null;
       accountToRestoreUsername = '';
     }
@@ -154,7 +154,7 @@
             {/if}
           </td>
           <td>
-            <button class="btn btn-success" on:click={() => openDeleteModal(accountinfo.id)}>Restore</button>
+            <button class="btn btn-success" on:click={() => openRestoreModal(accountinfo.id)}>Restore</button>
           </td>
         </tr>
       {/each}
@@ -167,20 +167,20 @@
   {/if}
   
   
-  <!-- Delete Confirmation Modal -->
-  <div class={`modal fade ${showDeleteModal ? 'show' : ''}`} id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden={!showDeleteModal} style={showDeleteModal ? 'display: block;' : 'display: none;'}>
+  <!-- Restore Confirmation Modal -->
+  <div class={`modal fade ${showRestoremodal ? 'show' : ''}`} id="restoreModal" tabindex="-1" aria-labelledby="restoreModalLabel" aria-hidden={!showRestoremodal} style={showRestoremodal ? 'display: block;' : 'display: none;'}>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Confirm Restore</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" on:click={closeDeleteModal}></button>
+          <h5 class="modal-title" id="restoreModalLabel">Confirm Restore</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" on:click={closeRestoreModal}></button>
         </div>
         <div class="modal-body">
           Are you sure you want to Restore the account with ID <strong>{accountToRestore}</strong> and username <strong>{accountToRestoreUsername}</strong>?
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" on:click={confirmDelete}>Restore</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" on:click={closeDeleteModal}>Cancel</button>
+            <button type="button" class="btn btn-success" on:click={confirmRestore}>Restore</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" on:click={closeRestoreModal}>Cancel</button>
         
         </div>
       </div>

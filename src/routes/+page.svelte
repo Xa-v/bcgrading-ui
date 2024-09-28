@@ -2,40 +2,40 @@
     import 'bootstrap/dist/css/bootstrap.min.css';
     import { onMount } from 'svelte';
 
-// Function to unregister all service workers
-async function clearServiceWorkerCache() {
-  if ('serviceWorker' in navigator) {
-    const registrations = await navigator.serviceWorker.getRegistrations();
-    for (const registration of registrations) {
-      registration.unregister();
-    }
-    console.log('Service workers unregistered and cache cleared.');
-  } else {
-    console.log('Service workers not supported in this browser.');
-  }
-}
+// // Function to unregister all service workers
+// async function clearServiceWorkerCache() {
+//   if ('serviceWorker' in navigator) {
+//     const registrations = await navigator.serviceWorker.getRegistrations();
+//     for (const registration of registrations) {
+//       registration.unregister();
+//     }
+//     console.log('Service workers unregistered and cache cleared.');
+//   } else {
+//     console.log('Service workers not supported in this browser.');
+//   }
+// }
 
 
 
-// Function to clear all storage (cookies, localStorage, sessionStorage)
-function clearStorage() {
-  localStorage.clear();
-  sessionStorage.clear();
-  console.log('Local storage and session storage cleared.');
-}
+// // Function to clear all storage (cookies, localStorage, sessionStorage)
+// function clearStorage() {
 
-// Combined function to clear all cache and storage
-function clearAllCache() {
-  clearServiceWorkerCache();
+//   sessionStorage.clear();
+//   console.log('Local storage and session storage cleared.');
+// }
 
-  clearStorage();
-}
+// // Combined function to clear all cache and storage
+// function clearAllCache() {
+//   clearServiceWorkerCache();
 
-// Optionally clear everything on page load
-onMount(() => {
-  // Uncomment if you want to clear everything automatically on page load
-  clearAllCache();
-});
+//   clearStorage();
+// }
+
+// // Optionally clear everything on page load
+// onMount(() => {
+//   // Uncomment if you want to clear everything automatically on page load
+//   clearAllCache();
+// });
 </script>
 
 
