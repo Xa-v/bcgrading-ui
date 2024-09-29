@@ -15,6 +15,7 @@
     $: ({ classid } = $page.params);  // Get classid from route
 
     onMount(async () => {
+        sessionStorage.clear();
        // Import Bootstrap JS
        await import('bootstrap/dist/js/bootstrap.bundle.min.js');
 

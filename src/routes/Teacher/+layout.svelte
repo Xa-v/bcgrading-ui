@@ -26,7 +26,7 @@
   
   
     // Use onMount to handle client-side operations
-    onMount(async () => {
+    onMount(async () => {sessionStorage.clear();
   
       await import('bootstrap/dist/js/bootstrap.bundle.min.js');
   

@@ -22,7 +22,7 @@
   
     // Use onMount to handle client-side operations
     onMount(async () => {
-
+      sessionStorage.clear();   
       await import('bootstrap/dist/js/bootstrap.bundle.min.js');
 
         const token = localStorage.getItem('jwtToken');

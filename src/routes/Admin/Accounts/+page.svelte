@@ -30,11 +30,13 @@
       goto('/Login');  // Redirect to the login page immediately
     }
   
-
+ 
     // Fetch accounts on component mount
     onMount(async () => {
+  
+      sessionStorage.clear();
 
-      // clearAllCache();
+
       const bootstrapModule = await import('bootstrap/dist/js/bootstrap.bundle.min.js');
       bootstrap = bootstrapModule.default;
 

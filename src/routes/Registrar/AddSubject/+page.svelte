@@ -1,12 +1,23 @@
 <script>
  
     import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
 
     let subjectcode = '';
     let title = '';
     let message = '';
 
-  
+
+    function clearStorage() {
+
+        sessionStorage.clear();
+        console.log('Local storage and session storage cleared.');
+}
+    onMount(async () => {
+        clearStorage();  
+
+    });
+
     async function handleSubmit() {
      
 
