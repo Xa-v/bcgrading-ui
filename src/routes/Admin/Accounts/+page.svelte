@@ -140,7 +140,9 @@
                 setTimeout(() => bsModal.hide(), 1500);
                
             } else {
-                error = `Failed to update account: ${response.statusText}`;
+              const errorResult = await response.json();
+            error = `Error updating account: ${errorResult.message}`; // Use server's error message if available
+            successMessage = ''; // Clear any previous success messages
             }
         } catch (error) {
             error = `Error updating account: ${error.message}`;
@@ -189,10 +191,12 @@
 
 
             } else {
-              error = `Failed to change password: ${response.statusText}`;
+              error = `Failed to change password: Passwords must match`;
+              setTimeout(() => window.location.reload(), 2000); 
             }
         } catch (error) {
           error = `Error changing password: ${error.message}`;
+          setTimeout(() => window.location.reload(), 2000); 
         }
        
     }
@@ -356,9 +360,9 @@
     }
 
 </script>
-{#if error}
+<!-- {#if error}
 <p>{error}</p>
-{/if}
+{/if} -->
 
 <ul class="nav nav-tabs">
    
@@ -516,7 +520,7 @@
 </div>
 
 {:else}
-  <div class="alert alert-danger">{error}</div>
+  <!-- <div class="alert alert-danger">{error}</div> -->
 {/if}
 
 

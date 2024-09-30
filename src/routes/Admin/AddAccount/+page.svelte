@@ -22,10 +22,7 @@
     const roles = ['Admin', 'Registrar', 'Teacher'];
     // const roles = ['Admin', 'Registrar', 'Student', 'Teacher'];
     async function handleSubmit() {
-        if (password !== confirmPassword) {
-            message = "Passwords do not match.";
-            return;
-        }
+      
 
         // Retrieve JWT token from localStorage
         const token = localStorage.getItem('jwtToken');
@@ -46,6 +43,21 @@
                     role
                 })
             });
+
+
+            if (!response.ok) {
+            // Extract error message from response if available
+            const errorResult = await response.json();
+            errorMessage = errorResult.message || 'Error creating account'; // Use server's error message if available
+            successMessage = ''; // Clear any previous success messages
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            errorMessage = errorResult.message || 'Error creating account'; // Use server's error message if available
+            successMessage = ''; // Clear any previous success messages
+            return;
+        }
             // const result = await response.json();
             successMessage = 'Account created successfully!';
             errorMessage = ''; // Clear any previous error messages
