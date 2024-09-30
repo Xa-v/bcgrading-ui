@@ -10,7 +10,7 @@
     let error = '';
     let userRole = '';
     
-   
+    let isLoading = false;
 
     onMount(async () => {
        
@@ -26,56 +26,64 @@
             const decodedToken = jwtDecode(token);
             userRole = decodedToken.role;  // Save userRole for later use
 
-            // Fetch the years if the user is authorized
-            const yearlist = await fetch('http://localhost:4000/registrar/years', {
-                headers: {
-                    'Authorization': `Bearer ${token}` // Include JWT token
+
+            try {
+                isLoading = true;
+                // Fetch the years if the user is authorized
+                const yearlist = await fetch('http://localhost:4000/registrar/years', {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include JWT token
+                    }
+                });
+
+                if (yearlist.ok) {
+                    years = await yearlist.json();
+                } else {
+                    error = `Failed to fetch years: ${yearlist.statusText}`;
                 }
-            });
-
-            if (yearlist.ok) {
-                years = await yearlist.json();
-            } else {
-                error = `Failed to fetch years: ${yearlist.statusText}`;
-            }
 
 
-            const semesterlist = await fetch('http://localhost:4000/registrar/semesters', {
-                headers: {
-                    'Authorization': `Bearer ${token}` // Include JWT token
+                const semesterlist = await fetch('http://localhost:4000/registrar/semesters', {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include JWT token
+                    }
+                });
+
+                if (semesterlist.ok) {
+                    semesters = await semesterlist.json();
+                } else {
+                    error = `Failed to fetch semesters: ${semesterlist.statusText}`;
                 }
-            });
+                
 
-            if (semesterlist.ok) {
-                semesters = await semesterlist.json();
-            } else {
-                error = `Failed to fetch semesters: ${semesterlist.statusText}`;
-            }
-            
+                const subjectlist = await fetch('http://localhost:4000/registrar/subjects', {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include JWT token
+                    }
+                });
 
-            const subjectlist = await fetch('http://localhost:4000/registrar/subjects', {
-                headers: {
-                    'Authorization': `Bearer ${token}` // Include JWT token
+                if (subjectlist.ok) {
+                    subjects = await subjectlist.json();
+                } else {
+                    error = `Failed to fetch subjects: ${subjectlist.statusText}`;
                 }
-            });
 
-            if (subjectlist.ok) {
-                subjects = await subjectlist.json();
-            } else {
-                error = `Failed to fetch subjects: ${subjectlist.statusText}`;
-            }
+                
+                const classlist = await fetch('http://localhost:4000/registrar', {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include JWT token
+                    }
+                });
 
-            
-            const classlist = await fetch('http://localhost:4000/registrar', {
-                headers: {
-                    'Authorization': `Bearer ${token}` // Include JWT token
+                if (classlist.ok) {
+                    classes = await classlist.json();
+                } else {
+                    error = `Failed to fetch classLIST: ${classlist.statusText}`;
                 }
-            });
-
-            if (classlist.ok) {
-                classes = await classlist.json();
-            } else {
-                error = `Failed to fetch classLIST: ${classlist.statusText}`;
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                isLoading = false;
             }
        
     });
@@ -212,6 +220,18 @@
                 </tr>
             </thead>
             <tbody>
+
+                {#if isLoading}
+                    <tr>
+                    <td colspan="9" class="text-center">
+                        <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <span style="font-size: 1.3rem; font-weight: medium;">Loading...</span>
+                    </td>
+                    </tr>
+                {/if}
+
                 {#each classes as classlist}
                 <tr>
                     <td>

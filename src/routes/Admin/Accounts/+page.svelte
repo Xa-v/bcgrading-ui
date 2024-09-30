@@ -24,6 +24,10 @@
     let accountToRestore = null;
     let accountToRestoreUsername = '';
 
+    let isLoading = false;
+
+    document.title = 'View All Users - Grading System Portal';
+
         // Function to handle logout
         function logout() {
       localStorage.removeItem('jwtToken');  // Clear the JWT token
@@ -68,7 +72,9 @@
             logout();
         }
 
-            // Fetch active accounts
+            try {
+              isLoading = true;
+              // Fetch active accounts
             const userlist = await fetch('http://localhost:4000/admin', {
                 headers: {
                     'Authorization': `Bearer ${token}` // Include JWT token
@@ -100,6 +106,11 @@
             accounts = [...activeAccounts, ...deletedAccounts];
 
 
+            } catch (error) {
+                error = `Error fetching accounts: ${error.message}`;
+            } finally {
+                isLoading = false;
+            }
 
 
 
@@ -421,6 +432,19 @@
     {/if}
 
     <tbody>
+
+      {#if isLoading}
+        <tr>
+          <td colspan="9" class="text-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <span style="font-size: 1.3rem; font-weight: medium;">Loading...</span>
+          </td>
+        </tr>
+      {/if}
+
+
       {#if selectedTab === 'all'}
         {#each accounts as accountinfo}
           <tr>

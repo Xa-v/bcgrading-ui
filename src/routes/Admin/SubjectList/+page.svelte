@@ -9,7 +9,9 @@
     let error = '';
   
  
-   
+    document.title = 'Subject List - Grading System Portal';
+
+    let isLoading = false;
 
     onMount(async () => {
 
@@ -20,7 +22,9 @@
 
          
 
-            const subjectlist = await fetch('http://localhost:4000/registrar/subjects', {
+            try {
+                isLoading = true;
+                const subjectlist = await fetch('http://localhost:4000/registrar/subjects', {
                 headers: {
                     'Authorization': `Bearer ${token}` // Include JWT token
                 }
@@ -30,6 +34,12 @@
                 subjects = await subjectlist.json();
             } else {
                 error = `Failed to fetch subjects: ${subjectlist.statusText}`;
+            }
+            } catch (error) {
+                console.error('Error fetching subjects:', error);
+                error = 'Failed to fetch subjects. Please try again later.';
+            } finally {
+                isLoading = false;
             }
                  
     });
@@ -90,6 +100,18 @@
                     </tr>
                 </thead>
                 <tbody>
+
+                    {#if isLoading}
+                        <tr>
+                        <td colspan="9" class="text-center">
+                            <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <span style="font-size: 1.3rem; font-weight: medium;">Loading...</span>
+                        </td>
+                        </tr>
+                    {/if}
+
                     {#each subjects as subject}
                     <tr>
                         <td>{subject.subjectcode}</td>

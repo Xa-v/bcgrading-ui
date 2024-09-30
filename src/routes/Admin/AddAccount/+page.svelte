@@ -19,6 +19,9 @@
     let userRole = '';
     let userID = '';
 
+    document.title = 'Add Account - Grading System Portal';
+  
+
     const roles = ['Admin', 'Registrar', 'Teacher'];
     // const roles = ['Admin', 'Registrar', 'Student', 'Teacher'];
     async function handleSubmit() {

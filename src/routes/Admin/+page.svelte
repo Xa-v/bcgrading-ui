@@ -7,6 +7,7 @@
     import { jwtDecode } from 'jwt-decode';
     import { fade } from 'svelte/transition';
    
+    document.title = 'Admin Dashboard - Grading System Portal';
   
     let error = '';
     let userRole = '';

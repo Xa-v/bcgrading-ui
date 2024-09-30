@@ -44,16 +44,16 @@
 <main>
     <div class="p-5 container-fluid">
       <header class="position-relative z-999">
-        <div>
+        <div class="logo_container">
           <a href="/">
             <img src="
-            https://benedictocollege.edu.ph/images/logo.png" alt="">
+            https://benedictocollege.edu.ph/images/logo.png" alt="Benedicto Logo" class="logo">
           </a>
         </div>
       </header>
       <div class="py-3 px-10">
         <div class="row">
-          <div class="col-5 mt-5 left">
+          <div class="col-5 mt-5 left gwapo">
             <h1 class="text-left">Welcome to <span class="benedicto">Benedicto</span> <span class="college">College</span> Grading System</h1>
             <!-- <div class="text-center">
               <h1 class="w-100 benedicto-college">
@@ -63,10 +63,10 @@
                 Management System
               </p>
             </div> -->
-          <a href="/Login" type="button" class="btn btn-primary mt-4">Login to your account</a>
+          <div class="button_container"><a href="/Login" type="button" class="btn btn_login btn-primary mt-4">Login to your account</a></div>
           </div>
-          <div class="col-sm-7 px-0 d-none d-sm-block ">
-            <img src="/src/lib/images/male-team-illustration.png" alt="" class="right-image">
+          <div class="col-sm-7 px-0 d-none d-sm-block illustrator_container ">
+            <img src="/src/lib/images/male-team-illustration.png" draggable="false" alt="" class="right-image">
           </div>
         </div>
       </div>
@@ -75,6 +75,66 @@
 
 
 <style>
+
+  @media screen and (max-width: 557px)  {
+    .text-left {
+      font-size: 2rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .logo_container {
+      width: 100%;
+      position: relative
+    }
+
+    .logo_container a {
+      width: auto;
+    }
+    
+    .button_container { 
+      position: relative;
+      /* width: 100%; */
+    }
+
+    .btn_login {
+      position: absolute;
+      left: 20%;
+      right: 20%;
+      transform: translate(0%, 0);
+    }
+
+
+    .logo_container img {
+      position: absolute;
+      left: 70%;
+      right: 50%;
+      transform: translate(-60%, 0);
+    }
+
+    .illustrator_container {
+      display: block;
+    }
+
+
+
+    .logo {
+      margin-block: auto;
+    }
+
+    .gwapo {
+      width: 100% !important;
+    }
+  }
+
+  @media screen and (max-width: 376px)  {
+    .logo_container img {
+      position: absolute;
+      left: 80%;
+      right: 50%;
+      transform: translate(-60%, 0);
+    }
+  }
   
   main{
     height: 100vh !important;

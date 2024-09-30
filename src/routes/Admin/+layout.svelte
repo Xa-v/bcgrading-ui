@@ -12,6 +12,8 @@
   let userRole = '';
   let userID = '';
 
+  document.title = 'Class List - Grading System Portal';
+
   // Function to handle logout
   function logout() {
     localStorage.removeItem('jwtToken');  // Clear the JWT token
