@@ -20,8 +20,8 @@
   $: ({ classid, gradeid } = $page.params);
 
   onMount(async () => {
-
-        sessionStorage.clear();
+    sessionStorage.clear();
+        
      // Import Bootstrap JS
      await import('bootstrap/dist/js/bootstrap.bundle.min.js');
 

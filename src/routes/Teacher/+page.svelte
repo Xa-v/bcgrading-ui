@@ -143,5 +143,12 @@ function showConfirmLogout() {
     }
 </style> 
 -->
+
+<script>
+      onMount(async () => {
+        sessionStorage.clear();
+
+      });
+</script>
 <h1>Teacher Dashboard</h1>
 <p>Welcome, Teacher!</p> 

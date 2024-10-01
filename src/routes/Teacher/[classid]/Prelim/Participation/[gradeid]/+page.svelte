@@ -14,6 +14,7 @@
 
     onMount(async () => {
         sessionStorage.clear();
+        
        // Import Bootstrap JS
        await import('bootstrap/dist/js/bootstrap.bundle.min.js');
 
