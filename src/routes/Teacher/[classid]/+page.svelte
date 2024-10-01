@@ -64,9 +64,9 @@
           return {
               studentinfo: student.studentinfo,
               grades: {
-                  Prelim: student.ComputedGradelists[0]?.transmutedgrade || '-',
-                  Midterm: midtermStudent.ComputedGradelists ? midtermStudent.ComputedGradelists[0]?.transmutedgrade : '-',
-                  Final: finalStudent.ComputedGradelists ? finalStudent.ComputedGradelists[0]?.transmutedgrade : '-'
+                  Prelim: student.ComputedGradelists[0]?.transmutedgrade || '5',
+                  Midterm: midtermStudent.ComputedGradelists ? midtermStudent.ComputedGradelists[0]?.transmutedgrade : '5',
+                  Final: finalStudent.ComputedGradelists ? finalStudent.ComputedGradelists[0]?.transmutedgrade : '5'
               }
           };
       });
@@ -75,21 +75,20 @@
 
 {#if classinfo}
 <div class="mb-3">
-   
 </div>
 
 <!-- Card with Class Info -->
-<div class="card rounded-0 shadow-sm mb-2">
+<!-- <div class="card rounded-0 shadow-sm mb-2">
   <div class="card-body">
     <h2 class="card-title mb-3">{classinfo.Subjectitle?.title} ({classinfo.subjectcode})</h2>
     <div class="d-flex justify-content-start gap-4 mb-1">
       <p class="text-muted mb-0"><strong>Year:</strong> {classinfo.year}</p>
       <p class="text-muted mb-0"><strong>Semester:</strong> {classinfo.semester}</p>
       <p class="text-muted"><strong>Teacher:</strong> {classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</p>
-    </div>
+    </div> -->
 
-    <a class="btn btn-sm rounded-0 btn-primary  p-2 mb-3"  href={`/Teacher/MyClass`}>
-      ←  go back to classlists 
+    <a class="btn btn-sm rounded-0 btn-primary p-2 mb-3" href={`/Teacher/MyClass`}>
+      ← go back to classlists
     </a>
 
     <ul class="nav nav-tabs rounded-0" id="myTab" role="tablist">
@@ -97,7 +96,7 @@
           <a class="nav-link active disabled rounded-0 text-center bg-light" href={`/Teacher/${classid}`} role="tab" aria-selected="false">GRADES</a>
         </li>
         <li class="nav-item flex-grow-1">
-            <a class="nav-link  rounded-0 text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="true">PRELIM</a>
+            <a class="nav-link rounded-0 text-center" href={`/Teacher/${classid}/Prelim`} role="tab" aria-selected="true">PRELIM</a>
         </li>
         <li class="nav-item flex-grow-1">
             <a class="nav-link rounded-0 text-center" href={`/Teacher/${classid}/Midterm`} role="tab" aria-selected="false">MIDTERM</a>
@@ -106,7 +105,6 @@
             <a class="nav-link rounded-0 text-center" href={`/Teacher/${classid}/Final`} role="tab" aria-selected="false">FINAL</a>
         </li>
     </ul>
-
 
 <!-- Grades Table -->
 <div style="max-height: 45vh; overflow-y: auto; overflow-x: hidden;">
@@ -132,17 +130,16 @@
     </tbody>
   </table>
   {:else}
-  <div class="">No grades available yet.</div>
+  <div class="">No students found.</div>
   {/if}
 </div>
-  </div>
-</div>
+  <!-- </div>
+</div> -->
 {/if}
 
-
-{#if error}
+<!-- {#if error}
 <div class="alert alert-danger mt-4">{error}</div>
-{/if}
+{/if} -->
 
 <style>
   .nav-link:hover {

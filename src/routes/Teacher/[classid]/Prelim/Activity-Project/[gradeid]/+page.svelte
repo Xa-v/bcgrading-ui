@@ -18,13 +18,21 @@
        await import('bootstrap/dist/js/bootstrap.bundle.min.js');
 
         const token = localStorage.getItem('jwtToken');
+        const decodedToken = jwtDecode(token);
+        userRole = decodedToken.role;  // Save userRole for later use
 
-        
-      
-            const decodedToken = jwtDecode(token);
-            userRole = decodedToken.role;  // Save userRole for later use
+          await fetchClassAndScoreData();
 
-            // Fetch the years if the user is authorized
+       
+    });
+
+
+    async function fetchClassAndScoreData() {
+        const token = localStorage.getItem('jwtToken');
+        const decodedToken = jwtDecode(token);
+        userRole = decodedToken.role;  // Save userRole for later use
+        try {
+
             const classdetails = await fetch(`http://localhost:4000/registrar/classinfo/${classid}`, {
                 headers: {
                     'Authorization': `Bearer ${token}` // Include JWT token
@@ -49,9 +57,38 @@
             } else {
                 error = `Failed to fetch activityprojectscores: ${activityprojectscores.statusText}`;
             }
+        } catch (err) {
+            error = err.message;
+        }
+    }
 
-       
-    });
+
+
+      // Function to handle updating SCORES
+      async function updateScore(scoreid, newScore) {
+        const token = localStorage.getItem('jwtToken');
+        
+        try {
+            const response = await fetch(`http://localhost:4000/teacher/updatescore/${scoreid}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ score: newScore })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result.message);
+                await fetchClassAndScoreData();
+            } else {
+                console.error('Failed to update Score.');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    }
 
 
 </script>
@@ -61,17 +98,17 @@
     
   </div>
     <!-- Card with Class Info -->
-    <div class="card rounded-0 shadow-sm mb-2">
-      <div class="card-body">
+    <!-- <div class="card rounded-0 shadow-sm mb-2">
+      <div class="card-body"> -->
         <!-- Header of Class Info -->
-        <h2 class="card-title mb-3">
+        <!-- <h2 class="card-title mb-3">
           {classinfo.Subjectitle?.title} ({classinfo.subjectcode})
         </h2>
         <div class="d-flex justify-content-start gap-4 mb-1">
             <p class="text-muted mb-0"><strong>Year: </strong> <strong> {classinfo.year}</strong></p>
             <p class="text-muted mb-0"><strong>Semester: </strong><strong>{classinfo.semester}</strong></p>
             <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName} </strong> </p>
-          </div>
+          </div> -->
 
           <a class="btn btn-sm rounded-0 btn-primary  p-2 mb-3"  href={`/Teacher/${1}/Prelim/Activity-Project`}>
             ←  go back to activity project 
@@ -110,9 +147,9 @@
           <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Prelim/Exam`} role="tab" aria-selected="false">EXAM</a>
       </li>
       </ul>
-
-
-   
+<div class="d-grid mt-4">
+<button class="btn btn-success">SAVE</button>
+</div>
     
       
          <!-- Cards displaying attendance data -->
@@ -146,18 +183,18 @@
         
 
 
-    </div>
-      </div>
+    <!-- </div>
+      </div> -->
 
     {/if}
 
 
 
-{#if error}
+<!-- {#if error}
   <div class="alert alert-danger mt-4">
     {error}
   </div>
-{/if}
+{/if} -->
 
 <style>
     .nav-link:hover {
@@ -171,3 +208,5 @@
         color: rgb(255, 255, 255) !important; /* Make the text white when active */
     }
   </style>
+
+  <!-- //comment para mo highlight -->

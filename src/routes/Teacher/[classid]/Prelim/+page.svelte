@@ -56,7 +56,7 @@
    
   </div>
   <!-- Card with Class Info -->
-  <div class="card rounded-0 shadow-sm mb-2">
+  <!-- <div class="card rounded-0 shadow-sm mb-2">
       <div class="card-body">
           <h2 class="card-title mb-3">
               {classinfo.Subjectitle?.title} ({classinfo.subjectcode})
@@ -65,7 +65,7 @@
               <p class="text-muted mb-0"><strong>Year: </strong><strong>{classinfo.year}</strong></p>
               <p class="text-muted mb-0"><strong>Semester: </strong><strong>{classinfo.semester}</strong></p>
               <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</strong></p>
-          </div>
+          </div> -->
 
           <a class="btn btn-sm rounded-0 btn-primary  p-2 mb-3"  href={`/Teacher/MyClass`}>
             ←  go back to classlists 
@@ -167,16 +167,35 @@
             </table>
         {:else}
         <div class="alert alert mt-3">No grades/scores available yet please add scores</div>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Term</th>   
+                    <th>Final Grade</th>
+                    <th>Transmuted Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#each students as student}
+                    {#each student.ComputedGradelists as grade}
+                        <tr>
+                            <td>{student.studentinfo.lastName} {student.studentinfo.firstName}</td>
+                         
+                            <td>{grade.term}</td>
+                   
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    {/each}
+                {/each}
+            </tbody>
+        </table>
         {/if}
     </div>
 
-      </div>
-  </div>
+      <!-- </div>
+  </div> -->
 
 
 {/if}
@@ -186,11 +205,11 @@
 
 
 <!-- Display any error messages -->
-{#if error}
+<!-- {#if error}
 <div class="alert alert-danger mt-4">
   {error}
 </div>
-{/if}
+{/if} -->
 
 <style>
   .nav-link:hover {

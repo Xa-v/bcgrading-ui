@@ -8,13 +8,14 @@
     import { fade } from 'svelte/transition';
    
   
-
+    let classinfo = [];
     let error = '';
     let showUnauthorizedMessage = false;
   
     let userRole = '';
     let userID = '';
   
+    $: ({ classid } = $page.params);
     // Function to handle logout
     function logout() {
       localStorage.removeItem('jwtToken');  // Clear the JWT token
@@ -67,7 +68,17 @@
             logout();
         }
   
-      
+        const classdetails = await fetch(`http://localhost:4000/registrar/classinfo/${classid}`, {
+              headers: {
+                  'Authorization': `Bearer ${token}` // Include JWT token
+              }
+          });
+
+          if (classdetails.ok) {
+              classinfo = await classdetails.json();
+          } else {
+              error = `Failed to fetch classdetails: ${classdetails.statusText}`;
+          }
   
   
     });
@@ -89,11 +100,23 @@
 <!-- Top Navbar with white background, border, and shadow -->
 <nav class="navbar navbar-light fixed-top p-0 shadow-none" style="border-bottom: 1px solid ;border-color: black;">
     <div class="navbar container-fluid">
-      <div class="d-flex align-items-center gap-2">
+      <div class="d-flex align-items-center gap-2"> 
         <!-- Navbar branding or logo if needed -->
       </div>
       <div>
-        <img src="/src/lib/images/profile-circle.svg" alt="" class="profile">
+        {#if classinfo}
+        <h1 class="">
+          
+        </h1>
+        <div class="d-flex justify-content-start gap-4 mb-1">
+          <h3>{classinfo.Subjectitle?.title} ({classinfo.subjectcode}) </h3>
+          <p class="text-muted mb-0"><strong>Year: </strong> <strong> {classinfo.year}</strong></p>
+          <p class="text-muted mb-0"><strong>Semester: </strong><strong>{classinfo.semester}</strong></p>
+          <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName} </strong> </p>
+          <img src="/src/lib/images/profile-circle.svg" alt="" class="profile">
+        </div>
+        {/if}
+       
       </div>
     </div>
   </nav>
