@@ -89,7 +89,7 @@
 <div class="mb-3">
     
 </div>
-<div class="card rounded-0 shadow-sm mb-2">
+<!-- <div class="card rounded-0 shadow-sm mb-2">
     <div class="card-body">
         <h2 class="card-title mb-3">
             {classinfo.Subjectitle?.title} ({classinfo.subjectcode})
@@ -98,7 +98,7 @@
             <p class="text-muted mb-0"><strong>Year: </strong> {classinfo.year}</p>
             <p class="text-muted mb-0"><strong>Semester: </strong> {classinfo.semester}</p>
             <p class="text-muted"><strong>Teacher: </strong> {classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</p>
-        </div>
+        </div> -->
 
         <a class="btn btn-sm rounded-0 btn-primary  p-2 mb-3"  href={`/Teacher/${1}/Final/Attendance`}>
             ←  go back to Attendance 
@@ -187,8 +187,8 @@
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
+    <!-- </div>
+</div> -->
 {/if}
 
 {#if error}

@@ -147,7 +147,7 @@
               <a class="nav-link rounded-0 border text-center" href={`/Teacher/${classid}/Midterm/Attendance`} role="tab" aria-selected="true">ATTENDANCE</a>
           </li>
           <li class="nav-item flex-grow-1">
-              <a class="nav-link   rounded-0 border text-center" href={`/Teacher/${classid}/Midterm/Participation`} role="tab" aria-selected="true">Participation</a>
+              <a class="nav-link   rounded-0 border text-center" href={`/Teacher/${classid}/Midterm/Participation`} role="tab" aria-selected="true">PARTICIPATION</a>
           </li>
           <li class="nav-item flex-grow-1">
               <a class="nav-link  rounded-0 border text-center" href={`/Teacher/${classid}/Midterm/Quiz`} role="tab" aria-selected="true">QUIZ</a>

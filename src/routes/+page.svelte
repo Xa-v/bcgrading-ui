@@ -2,6 +2,7 @@
     import 'bootstrap/dist/css/bootstrap.min.css';
     import { onMount } from 'svelte';
 
+
 // // Function to unregister all service workers
 // async function clearServiceWorkerCache() {
 //   if ('serviceWorker' in navigator) {
