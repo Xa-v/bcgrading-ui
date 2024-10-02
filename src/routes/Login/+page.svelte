@@ -27,6 +27,9 @@
 
 
 
+document.title = 'Sign in - Grading System Portal';
+
+
     async function handleLogin() {
       loading = true;  // Set loading to true when login starts
       error = '';      // Clear any previous errors

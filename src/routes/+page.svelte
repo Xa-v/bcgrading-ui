@@ -36,6 +36,11 @@
 //   // Uncomment if you want to clear everything automatically on page load
 //   clearAllCache();
 // });
+
+
+document.title = 'Benedicto Grading System Portal';
+
+
 </script>
 
 
