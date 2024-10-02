@@ -1,90 +1,92 @@
 <!-- src/routes/Admin/+layout.svelte -->
 <script>
-    import 'bootstrap/dist/css/bootstrap.min.css';
-    import { onMount } from 'svelte';
-    import { goto } from '$app/navigation';
-    import { page } from '$app/stores';
-    import { jwtDecode } from 'jwt-decode';
-    import { fade } from 'svelte/transition';
-   
-  
-    let classinfo = [];
-    let error = '';
-    let showUnauthorizedMessage = false;
-  
-    let userRole = '';
-    let userID = '';
-  
-    $: ({ classid } = $page.params);
-    // Function to handle logout
-    function logout() {
+  import 'bootstrap/dist/css/bootstrap.min.css';
+  import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+  import { jwtDecode } from 'jwt-decode';
+
+  let classinfo = null; // Start with classinfo as null
+  let error = '';
+  let showUnauthorizedMessage = false;
+
+  let userRole = '';
+  let userID = '';
+
+  $: ({ classid } = $page.params); // Watch the route for changes in classid
+
+  // Function to handle logout
+  function logout() {
       localStorage.removeItem('jwtToken');  // Clear the JWT token
       goto('/Login');  // Redirect to the login page immediately
-    }
-  
-  
-  
-  
-  
-    // Use onMount to handle client-side operations
-    onMount(async () => {sessionStorage.clear();
-  
-      await import('bootstrap/dist/js/bootstrap.bundle.min.js');
-  
-  
-     
-        const token = localStorage.getItem('jwtToken');
-        // const idtoken = jwtDecode(token);
-        //  userID = idtoken.id;
-        // console.log("User ID:", userID);
-  
-          if (!token) {
-                // unauthorizedAccess("Log-in sa doy redirecting to login...");
-                showUnauthorizedMessage = true;
-                logout();
-                      return;
-                  }
-  
-                  try {
-            const decodedToken = jwtDecode(token);
-            userRole = decodedToken.role;
-            userID = decodedToken.id;
-            console.log("Role:", userRole);
-            console.log("ID:", userID);
-            
-  
-            if (userRole !== 'Teacher') {
-                // redirectMessage = `Role '${userRole}' does not have access to this page.`;
-                // unauthorizedAccess("Redirecting you to your role-specific page.");
-                showUnauthorizedMessage = true;
-                goto(`/${userRole}`);
-                return;
-            }
-  
-          } catch (error) {
-            console.error('Error:', error);
-            // unauthorizedAccess("Error decoding token, redirecting to login.");
-            showUnauthorizedMessage = true;
-            logout();
-        }
-  
-        const classdetails = await fetch(`http://localhost:4000/registrar/classinfo/${classid}`, {
-              headers: {
-                  'Authorization': `Bearer ${token}` // Include JWT token
-              }
-          });
+  }
 
-          if (classdetails.ok) {
-              classinfo = await classdetails.json();
-          } else {
-              error = `Failed to fetch classdetails: ${classdetails.statusText}`;
+  // Function to fetch class details based on classid
+  async function fetchClassDetails(classid, token) {
+      if (!classid) {
+          classinfo = null;  // Clear classinfo if no classid
+          return;
+      }
+
+      const classdetails = await fetch(`http://localhost:4000/registrar/classinfo/${classid}`, {
+          headers: {
+              'Authorization': `Bearer ${token}` // Include JWT token
           }
-  
-  
-    });
+      });
 
-    
-  </script>
+      if (classdetails.ok) {
+          classinfo = await classdetails.json();
+      } else {
+          error = `Failed to fetch classdetails: ${classdetails.statusText}`;
+      }
+  }
+
+  // Use onMount to handle client-side operations
+  onMount(async () => {
+      sessionStorage.clear(); // Clear session storage on mount
+
+      await import('bootstrap/dist/js/bootstrap.bundle.min.js');
+
+      const token = localStorage.getItem('jwtToken');
+      if (!token) {
+          showUnauthorizedMessage = true;
+          logout();
+          return;
+      }
+
+      try {
+          const decodedToken = jwtDecode(token);
+          userRole = decodedToken.role;
+          userID = decodedToken.id;
+
+          if (userRole !== 'Teacher') {
+              showUnauthorizedMessage = true;
+              goto(`/${userRole}`);
+              return;
+          }
+
+          // Fetch class details when the page first loads
+          await fetchClassDetails(classid, token);
+
+      } catch (error) {
+          console.error('Error:', error);
+          showUnauthorizedMessage = true;
+          logout();
+      }
+  });
+
+  // Watch for changes in classid to refresh classinfo dynamically
+  $: if (!classid) {
+      classinfo = null;  // Clear classinfo when no classid is present
+  } else if (classid) {
+      const token = localStorage.getItem('jwtToken');
+      if (token) {
+          fetchClassDetails(classid, token); // Re-fetch class details if classid changes
+      } else {
+          classinfo = null; // Clear classinfo if there's no classid or token
+      }
+  }
+</script>
   {#if showUnauthorizedMessage}
   <div class="popup" >
    
@@ -105,17 +107,14 @@
       </div>
       <div>
         {#if classinfo}
-        <h1 class="">
-          
-        </h1>
         <div class="d-flex justify-content-start gap-4 mb-1">
-          <h3>{classinfo.Subjectitle?.title} ({classinfo.subjectcode}) </h3>
-          <p class="text-muted mb-0"><strong>Year: </strong> <strong> {classinfo.year}</strong></p>
-          <p class="text-muted mb-0"><strong>Semester: </strong><strong>{classinfo.semester}</strong></p>
-          <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName} </strong> </p>
-          <img src="/src/lib/images/profile-circle.svg" alt="" class="profile">
+            <h3>{classinfo.Subjectitle?.title} ({classinfo.subjectcode}) </h3>
+            <p class="text-muted mb-0"><strong>Year: </strong> <strong>{classinfo.year}</strong></p>
+            <p class="text-muted mb-0"><strong>Semester: </strong><strong>{classinfo.semester}</strong></p>
+            <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</strong></p>
+            <img src="/src/lib/images/profile-circle.svg" alt="" class="profile">
         </div>
-        {/if}
+    {/if}
        
       </div>
     </div>
