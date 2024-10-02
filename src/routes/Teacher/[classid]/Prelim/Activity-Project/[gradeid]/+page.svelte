@@ -5,101 +5,121 @@
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
 
+    import toast, {Toaster} from "svelte-french-toast";
+
     let classinfo = [];
     let activityprojectscoresprelim = [];
     let error = '';
     let userRole = '';
 
-
     let scoresToUpdate = {};
 
-    
     $: ({ classid, gradeid } = $page.params);
 
     onMount(async () => {
         sessionStorage.clear();
-       // Import Bootstrap JS
-       await import('bootstrap/dist/js/bootstrap.bundle.min.js');
+        await import('bootstrap/dist/js/bootstrap.bundle.min.js');
 
         const token = localStorage.getItem('jwtToken');
         const decodedToken = jwtDecode(token);
-        userRole = decodedToken.role;  // Save userRole for later use
+        userRole = decodedToken.role;
 
-          await fetchClassAndScoreData();
-
-       
+        await fetchClassAndScoreData();
     });
 
-
+    // Fetch class and score data with toast promise
     async function fetchClassAndScoreData() {
         const token = localStorage.getItem('jwtToken');
         const decodedToken = jwtDecode(token);
-        userRole = decodedToken.role;  // Save userRole for later use
-        try {
+        userRole = decodedToken.role;
 
-            const classdetails = await fetch(`http://localhost:4000/registrar/classinfo/${classid}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}` // Include JWT token
-                }
-            });
-
-            if (classdetails.ok) {
-                classinfo = await classdetails.json();
-            } else {
-                error = `Failed to fetch classdetails: ${classdetails.statusText}`;
-            }
-
-
-            const activityprojectscores = await fetch(`http://localhost:4000/teacher/getgradelist/${gradeid}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}` // Include JWT token
-                }
-            });
-
-            if (activityprojectscores.ok) {
-                activityprojectscoresprelim = await activityprojectscores.json();
-            } else {
-                error = `Failed to fetch activityprojectscores: ${activityprojectscores.statusText}`;
-            }
-        } catch (err) {
-            error = err.message;
-        }
-    }
-
-
-
-      // Function to handle updating SCORES
-      async function updateScore() {
-        const token = localStorage.getItem('jwtToken');
-        
-        try {
-            for (const [scoreid, newScore] of Object.entries(scoresToUpdate)) {
-                const response = await fetch(`http://localhost:4000/teacher/updatescore/${scoreid}`, {
-                    method: 'PUT',
+        const fetchPromise = (async () => {
+            try {
+                const classdetails = await fetch(`http://localhost:4000/registrar/classinfo/${classid}`, {
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ score: newScore })
+                        'Authorization': `Bearer ${token}` // Include JWT token
+                    }
                 });
 
-                if (response.ok) {
+                if (classdetails.ok) {
+                    classinfo = await classdetails.json();
+                } else {
+                    throw new Error(`Failed to fetch class details: ${classdetails.statusText}`);
+                }
+
+                const activityprojectscores = await fetch(`http://localhost:4000/teacher/getgradelist/${gradeid}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include JWT token
+                    }
+                });
+
+                if (activityprojectscores.ok) {
+                    activityprojectscoresprelim = await activityprojectscores.json();
+                } else {
+                    throw new Error(`Failed to fetch activity project scores: ${activityprojectscores.statusText}`);
+                }
+            } catch (err) {
+                error = err.message;
+                throw err;  // rethrow to pass error to toast
+            }
+        })();
+
+        // toast.promise(
+        //     fetchPromise,
+        //     {
+        //         loading: "Fetching data...",
+        //         success: "Data fetched successfully!",
+        //         error: "Failed to fetch data.",
+        //     }
+        // );
+    }
+
+    // Update score with toast promise
+    async function updateScore() {
+        const token = localStorage.getItem('jwtToken');
+
+        const updatePromise = (async () => {
+            try {
+                for (const [scoreid, newScore] of Object.entries(scoresToUpdate)) {
+                    const response = await fetch(`http://localhost:4000/teacher/updatescore/${scoreid}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ score: newScore })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to update Score for scoreid: ${scoreid}`);
+                    }
                     const result = await response.json();
                     console.log(result.message);
-                } else {
-                    console.error('Failed to update Score for scoreid:', scoreid);
                 }
+                await fetchClassAndScoreData();  // Refresh the data after update
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;  // rethrow to pass error to toast
             }
-            await fetchClassAndScoreData();  // Refresh the data after update
-        } catch (err) {
-            console.error('Error:', err);
-        }
+        })();
+
+        toast.promise(
+            updatePromise,
+            {
+                loading: "Updating scores...",
+                success: "Scores updated successfully!",
+                error: "Failed to update scores.",
+            },
+            { position: 'bottom-right' }
+        );
     }
 
     function handleInputChange(scoreid, newScore) {
         scoresToUpdate[scoreid] = newScore;  // Store the updated score
     }
 </script>
+
+<Toaster />
 
 {#if classinfo}
 <div class="mb-3">
