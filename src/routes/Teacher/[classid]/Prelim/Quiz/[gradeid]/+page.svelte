@@ -5,11 +5,13 @@
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
 
+    import toast, {Toaster} from "svelte-french-toast";
     let classinfo = [];
     let quizscoresprelim = [];
     let error = '';
     let userRole = '';
-    
+    let scoresToUpdate = {};
+
     $: ({ classid, gradeid } = $page.params);
 
     onMount(async () => {
@@ -24,48 +26,98 @@
             const decodedToken = jwtDecode(token);
             userRole = decodedToken.role;  // Save userRole for later use
 
-            // Fetch the years if the user is authorized
-            const classdetails = await fetch(`http://localhost:4000/registrar/classinfo/${classid}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}` // Include JWT token
-                }
-            });
-
-            if (classdetails.ok) {
-                classinfo = await classdetails.json();
-            } else {
-                error = `Failed to fetch classdetails: ${classdetails.statusText}`;
-            }
-
-            // const prelimsattendance = await fetch(`http://localhost:4000/teacher/Prelim/Attendance/${classid}`, {
-            //     headers: {
-            //         'Authorization': `Bearer ${token}` // Include JWT token
-            //     }
-            // });
-
-            // if (prelimsattendance.ok) {
-            //     attendanceprelim = await prelimsattendance.json();
-            // } else {
-            //     error = `Failed to fetch prelimsattendance: ${prelimsattendance.statusText}`;
-            // }
-            const quizscores = await fetch(`http://localhost:4000/teacher/getgradelist/${gradeid}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}` // Include JWT token
-                }
-            });
-
-            if (quizscores.ok) {
-                quizscoresprelim = await quizscores.json();
-            } else {
-                error = `Failed to fetch quizscores: ${quizscores.statusText}`;
-            }
+            await fetchClassAndScoreData();
 
        
     });
 
 
-</script>
+        // Fetch class and score data with toast promise
+        async function fetchClassAndScoreData() {
+        const token = localStorage.getItem('jwtToken');
+        const decodedToken = jwtDecode(token);
+        userRole = decodedToken.role;
 
+        const fetchPromise = (async () => {
+            try {
+                const classdetails = await fetch(`http://localhost:4000/registrar/classinfo/${classid}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include JWT token
+                    }
+                });
+
+                if (classdetails.ok) {
+                    classinfo = await classdetails.json();
+                } else {
+                    throw new Error(`Failed to fetch class details: ${classdetails.statusText}`);
+                }
+
+                const quizscores = await fetch(`http://localhost:4000/teacher/getgradelist/${gradeid}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include JWT token
+                    }
+                });
+
+                if (quizscores.ok) {
+                    quizscoresprelim = await quizscores.json();
+                } else {
+                    throw new Error(`Failed to fetch activity project scores: ${quizscores.statusText}`);
+                }
+            } catch (err) {
+                error = err.message;
+                throw err;  // rethrow to pass error to toast
+            }
+        })();
+
+  
+    }
+
+    // Update score with toast promise
+    async function updateScore() {
+        const token = localStorage.getItem('jwtToken');
+
+        const updatePromise = (async () => {
+            try {
+                for (const [scoreid, newScore] of Object.entries(scoresToUpdate)) {
+                    const response = await fetch(`http://localhost:4000/teacher/updatescore/${scoreid}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ score: newScore })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to update Score for scoreid: ${scoreid}`);
+                    }
+                    const result = await response.json();
+                    console.log(result.message);
+                }
+                await fetchClassAndScoreData();  // Refresh the data after update
+            } catch (err) {
+                console.error('Error:', err);
+                throw err;  // rethrow to pass error to toast
+            }
+        })();
+
+        toast.promise(
+            updatePromise,
+            {
+                loading: "Updating scores...",
+                success: "Scores updated successfully!",
+                error: "Failed to update scores.",
+            },
+            { position: 'center-top' }
+        );
+    }
+
+    function handleInputChange(scoreid, newScore) {
+        scoresToUpdate[scoreid] = newScore;  // Store the updated score
+    }
+
+</script>
+<Toaster />
 {#if classinfo}
 <div class="mb-3">
    
@@ -120,7 +172,9 @@
           <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Prelim/Exam`} role="tab" aria-selected="false">EXAM</a>
       </li>
       </ul>
-
+      <div class="d-grid mt-4">
+        <button class="btn btn-success" on:click={updateScore}>SAVE</button>
+    </div>
 
    
     
@@ -144,7 +198,24 @@
                     <tr>
                       
                         <td>{quiz.Studentlist?.studentinfo?.lastName}{quiz.Studentlist?.studentinfo?.firstName}</td>
-                        <td>{quiz.score}</td>
+                        <td>
+                            <input
+                                type="number"
+                                class="form-control"
+                                bind:value={quiz.score}
+                                min="0"
+                                on:blur={(e) => {
+                                    const enteredScore = Number(e.target.value);
+                                    if (enteredScore > quiz.perfectscore) {
+                                        // Reset the value back to the original score if the entered value is greater than perfect score
+                                        e.target.value = quiz.score; 
+                                        toast.error(`Score cannot be higher than ${quiz.perfectscore}`);
+                                    } else {
+                                        handleInputChange(quiz.scoreid, e.target.value);
+                                    }
+                                }}
+                            />
+                        </td>
                         <td>{quiz.perfectscore}</td>
                         <td>{quiz.scoretype}</td>
                     </tr>
@@ -170,6 +241,13 @@
 {/if}
 
 <style>
+
+input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+
     .nav-link:hover {
         background-color: #001A56 !important; /* Bootstrap primary color or any custom color */
         color: rgb(255, 255, 255) !important; /* Make the text white when hovered */

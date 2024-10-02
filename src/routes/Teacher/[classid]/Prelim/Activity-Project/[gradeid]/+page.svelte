@@ -64,14 +64,7 @@
             }
         })();
 
-        // toast.promise(
-        //     fetchPromise,
-        //     {
-        //         loading: "Fetching data...",
-        //         success: "Data fetched successfully!",
-        //         error: "Failed to fetch data.",
-        //     }
-        // );
+  
     }
 
     // Update score with toast promise

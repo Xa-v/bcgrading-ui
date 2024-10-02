@@ -6,7 +6,7 @@
     import { goto } from '$app/navigation';
   
     let classinfo = [];
-    let quizmidterm = [];
+    let quizfinal = [];
     let error = '';
     let successMessage = '';
     let userRole = '';
@@ -44,16 +44,16 @@
                 error = `Failed to fetch classdetails: ${classdetails.statusText}`;
             }
   
-            const midtermquiz = await fetch(`http://localhost:4000/teacher/Midterm/Quiz/${classid}`, {
+            const finalquiz = await fetch(`http://localhost:4000/teacher/Final/Quiz/${classid}`, {
                 headers: {
                     'Authorization': `Bearer ${token}` // Include JWT token
                 }
             });
   
-            if (midtermquiz.ok) {
-                quizmidterm = await midtermquiz.json();
+            if (finalquiz.ok) {
+                quizfinal = await finalquiz.json();
             } else {
-                error = `Failed to fetch midtermquiz: ${midtermquiz.statusText}`;
+                error = `Failed to fetch finalquiz: ${finalquiz.statusText}`;
             }
   
   
@@ -166,7 +166,7 @@
             <!-- Cards displaying attendance data (left side, scrollable) -->
             <div class="col-md-8" style="max-height: 50vh; overflow-y: auto;">
                 <div class="row mt-3">
-                    {#each quizmidterm as quiz}
+                    {#each quizfinal as quiz}
                     <div class="col-md-4">
                         <div class="acard card rounded-0 text-center mb-3 shadow-sm" style="width: 15rem; height: 7rem;">
                             <a href={`/Teacher/${classid}/Final/Quiz/${quiz.gradeid}`} style="text-decoration: none; color: inherit;">

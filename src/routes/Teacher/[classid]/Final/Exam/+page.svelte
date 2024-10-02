@@ -6,7 +6,7 @@
   import { goto } from '$app/navigation';
 
   let classinfo = [];
-  let exammidterm = [];
+  let examfinal = [];
   let error = '';
   let successMessage = '';
   let userRole = '';
@@ -51,7 +51,7 @@
           });
 
           if (midtermexam.ok) {
-              exammidterm = await midtermexam.json();
+              examfinal = await midtermexam.json();
           } else {
               error = `Failed to fetch midtermexam: ${midtermexam.statusText}`;
           }
@@ -169,7 +169,7 @@
           <!-- Cards displaying attendance data (left side, scrollable) -->
           <div class="col-md-8" style="max-height: 50vh; overflow-y: auto;">
               <div class="row mt-3">
-                  {#each exammidterm as exam}
+                  {#each examfinal as exam}
                   <div class="col-md-4">
                       <div class="acard card rounded-0 text-center mb-3 shadow-sm" style="width: 15rem; height: 7rem;">
                           <a href={`/Teacher/${classid}/Final/Exam/${exam.gradeid}`} style="text-decoration: none; color: inherit;">

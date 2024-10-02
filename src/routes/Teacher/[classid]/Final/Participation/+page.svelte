@@ -6,7 +6,7 @@
   import { goto } from '$app/navigation';
 
   let classinfo = [];
-  let participationmidterm = [];
+  let participationfinal = [];
   let error = '';
   let successMessage = '';
   let userRole = '';
@@ -44,16 +44,16 @@
               error = `Failed to fetch classdetails: ${classdetails.statusText}`;
           }
 
-          const prelimsparticipation = await fetch(`http://localhost:4000/teacher/Final/Participation/${classid}`, {
+          const finalsparticipation = await fetch(`http://localhost:4000/teacher/Final/Participation/${classid}`, {
               headers: {
                   'Authorization': `Bearer ${token}` // Include JWT token
               }
           });
 
-          if (prelimsparticipation.ok) {
-              participationmidterm = await prelimsparticipation.json();
+          if (finalsparticipation.ok) {
+              participationfinal = await finalsparticipation.json();
           } else {
-              error = `Failed to fetch prelimsparticipation: ${prelimsparticipation.statusText}`;
+              error = `Failed to fetch finalsparticipation: ${finalsparticipation.statusText}`;
           }
 
 
@@ -166,7 +166,7 @@
           <!-- Cards displaying attendance data (left side, scrollable) -->
           <div class="col-md-8" style="max-height: 50vh; overflow-y: auto;">
               <div class="row mt-3">
-                  {#each participationmidterm as participation}
+                  {#each participationfinal as participation}
                   <div class="col-md-4">
                       <div class="acard card rounded-0 text-center mb-3 shadow-sm" style="width: 15rem; height: 7rem;">
                           <a href={`/Teacher/${classid}/Final/Participation/${participation.gradeid}`} style="text-decoration: none; color: inherit;">
