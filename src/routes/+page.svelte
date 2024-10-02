@@ -32,13 +32,14 @@
 // }
 
 // // Optionally clear everything on page load
-// onMount(() => {
-//   // Uncomment if you want to clear everything automatically on page load
-//   clearAllCache();
-// });
+onMount(() => {
+  document.title = 'Benedicto Grading System Portal';
 
 
-document.title = 'Benedicto Grading System Portal';
+});
+
+
+
 
 
 </script>
