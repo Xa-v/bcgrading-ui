@@ -56,16 +56,16 @@
    
   </div>
   <!-- Card with Class Info -->
-  <div class="card rounded-0 shadow-sm mb-2">
-      <div class="card-body">
-          <h2 class="card-title mb-3">
+  <!-- <div class="card rounded-0 shadow-sm mb-2">
+      <div class="card-body"> -->
+          <!-- <h2 class="card-title mb-3">
               {classinfo.Subjectitle?.title} ({classinfo.subjectcode})
           </h2>
           <div class="d-flex justify-content-start gap-4 mb-1">
               <p class="text-muted mb-0"><strong>Year: </strong><strong>{classinfo.year}</strong></p>
               <p class="text-muted mb-0"><strong>Semester: </strong><strong>{classinfo.semester}</strong></p>
               <p class="text-muted"><strong>Teacher: </strong><strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</strong></p>
-          </div>
+          </div> -->
 
           <a class="btn btn-sm rounded-0 btn-primary  p-2 mb-3"  href={`/Teacher/MyClass`}>
             ←  go back to classlists 
@@ -174,8 +174,8 @@
         {/if}
     </div>
 
-      </div>
-  </div>
+      <!-- </div>
+  </div> -->
 
 
 {/if}

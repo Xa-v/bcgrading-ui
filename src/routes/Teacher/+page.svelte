@@ -145,6 +145,8 @@ function showConfirmLogout() {
 -->
 
 <script>
+     import { onMount } from 'svelte';
+     
       onMount(async () => {
         sessionStorage.clear();
 

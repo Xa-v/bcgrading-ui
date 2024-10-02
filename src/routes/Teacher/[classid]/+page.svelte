@@ -75,7 +75,28 @@
 </script>
 
 {#if classinfo}
-<div class="mb-3">
+<nav class=" navbar fixed-top p-0 shadow-none z-999 bg-white" style="margin-left: 16rem;">
+  <div class="navbar ">
+    <div>
+      {#if classinfo}
+      <h1 class="">
+        
+      </h1>
+      <div class="d-flex justify-content-center gap-4 mb-1 flex-column align-items-center" style="padding-left: 1rem;">
+        <div class="">
+          <h3>{classinfo.Subjectitle?.title} ({classinfo.subjectcode}) </h3>
+          <p class="text-muted mb-0"><strong>Year: </strong>  {classinfo.year}</p>
+          <p class="text-muted mb-0"><strong>Semester: </strong>{classinfo.semester}</p>
+          <p class="text-muted"><strong>Teacher: </strong>{classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</p>
+        </div>
+      </div>
+      {/if}
+     
+    </div>
+  </div>
+</nav>
+
+<div class="mb-3 mt-5" >
 </div>
 
 <!-- Card with Class Info -->
@@ -88,7 +109,7 @@
       <p class="text-muted"><strong>Teacher:</strong> {classinfo.TeacherInfo?.firstName} {classinfo.TeacherInfo?.lastName}</p>
     </div> -->
 
-    <a class="btn btn-sm rounded-0 btn-primary p-2 mb-3" href={`/Teacher/MyClass`}>
+    <a class="btn btn-sm rounded-0 btn-primary p-2 mb-3" href={`/Teacher/MyClass`} style="margin-top: 2rem;">
       ← go back to classlists
     </a>
 
