@@ -123,9 +123,9 @@
       </ul>
 
 
-      <button class="rounded-0 btn btn-outline-primary d-flex justify-content-center align-items-center mt-2 mb-2" style="height: 25px;" on:click={() => window.history.back()}>
+      <!-- <button class="rounded-0 btn btn-outline-primary d-flex justify-content-center align-items-center mt-2 mb-2" style="height: 25px;" on:click={() => window.history.back()}>
         ←
-    </button>
+    </button> -->
     
       
          <!-- Cards displaying attendance data -->

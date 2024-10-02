@@ -110,7 +110,7 @@
                 success: "Scores updated successfully!",
                 error: "Failed to update scores.",
             },
-            { position: 'bottom-right' }
+            { position: 'center-top' }
         );
     }
 
@@ -201,10 +201,21 @@
                             <input
                                 type="number"
                                 class="form-control"
-                                value={activityproject.score}
-                                on:input={(e) => handleInputChange(activityproject.scoreid, e.target.value)}
+                                bind:value={activityproject.score}
+                                min="0"
+                                on:blur={(e) => {
+                                    const enteredScore = Number(e.target.value);
+                                    if (enteredScore > activityproject.perfectscore) {
+                                        // Reset the value back to the original score if the entered value is greater than perfect score
+                                        e.target.value = activityproject.score; 
+                                        toast.error(`Score cannot be higher than ${activityproject.perfectscore}`);
+                                    } else {
+                                        handleInputChange(activityproject.scoreid, e.target.value);
+                                    }
+                                }}
                             />
                         </td>
+                        
                         <td>{activityproject.perfectscore}</td>
                         <td>{activityproject.scoretype}</td>
                       
