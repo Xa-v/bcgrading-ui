@@ -98,7 +98,7 @@
   {/if}
   
 <!-- Top Navbar with white background, border, and shadow -->
-<!-- <nav class="navbar navbar-light fixed-top p-0 shadow-none" style="border-bottom: 1px solid ;border-color: black;">
+<nav class="navbar navbar-light fixed-top p-0 shadow-none" style="border-bottom: 1px solid ;border-color: black;">
     <div class="navbar container-fluid">
       <div class="d-flex align-items-center gap-2"> 
         
@@ -120,7 +120,7 @@
       </div>
     </div>
   </nav>
-   -->
+  
   
   <div class="d-flex">
     <!-- Sidebar -->
