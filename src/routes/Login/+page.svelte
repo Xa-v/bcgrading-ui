@@ -14,7 +14,7 @@
 
   
     onMount(async () => {
- 
+      document.title = 'Sign in - Grading System Portal';
   if (!localStorage.getItem('x')) {
     localStorage.setItem('x', 'true');
     // Reload the page
@@ -27,7 +27,7 @@
 
 
 
-document.title = 'Sign in - Grading System Portal';
+
 
 
     async function handleLogin() {
