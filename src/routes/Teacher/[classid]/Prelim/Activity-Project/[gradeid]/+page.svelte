@@ -9,7 +9,7 @@
     let activityprojectscoresprelim = [];
     let error = '';
     let userRole = '';
-    
+    let scoresToUpdate = {};
     $: ({ classid, gradeid } = $page.params);
 
     onMount(async () => {
@@ -65,32 +65,36 @@
 
 
       // Function to handle updating SCORES
-      async function updateScore(scoreid, newScore) {
+      async function updateScore() {
         const token = localStorage.getItem('jwtToken');
         
         try {
-            const response = await fetch(`http://localhost:4000/teacher/updatescore/${scoreid}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ score: newScore })
-            });
+            for (const [scoreid, newScore] of Object.entries(scoresToUpdate)) {
+                const response = await fetch(`http://localhost:4000/teacher/updatescore/${scoreid}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ score: newScore })
+                });
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log(result.message);
-                await fetchClassAndScoreData();
-            } else {
-                console.error('Failed to update Score.');
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log(result.message);
+                } else {
+                    console.error('Failed to update Score for scoreid:', scoreid);
+                }
             }
+            await fetchClassAndScoreData();  // Refresh the data after update
         } catch (err) {
             console.error('Error:', err);
         }
     }
 
-
+    function handleInputChange(scoreid, newScore) {
+        scoresToUpdate[scoreid] = newScore;  // Store the updated score
+    }
 </script>
 
 {#if classinfo}
@@ -147,13 +151,13 @@
           <a class="nav-link rounded-0 border  text-center" href={`/Teacher/${classid}/Prelim/Exam`} role="tab" aria-selected="false">EXAM</a>
       </li>
       </ul>
-<div class="d-grid mt-4">
-<button class="btn btn-success">SAVE</button>
-</div>
+      <div class="d-grid mt-4">
+        <button class="btn btn-success" on:click={updateScore}>SAVE</button>
+    </div>
     
       
          <!-- Cards displaying attendance data -->
-         <div style="max-height: 42vh; overflow-y: auto; overflow-x: hidden;">
+         <div style="max-height: 55vh; overflow-y: auto; overflow-x: hidden;">
             <table class="table table-bordered table-hover">
             
                 <thead class="table-light">
@@ -169,7 +173,14 @@
                     {#each activityprojectscoresprelim as activityproject}
                     <tr>
                         <td>{activityproject.Studentlist?.studentinfo?.firstName} {activityproject.Studentlist?.studentinfo?.lastName}</td>
-                        <td>{activityproject.score}</td>
+                        <td>
+                            <input
+                                type="number"
+                                class="form-control"
+                                value={activityproject.score}
+                                on:input={(e) => handleInputChange(activityproject.scoreid, e.target.value)}
+                            />
+                        </td>
                         <td>{activityproject.perfectscore}</td>
                         <td>{activityproject.scoretype}</td>
                       
@@ -183,20 +194,19 @@
         
 
 
-    <!-- </div>
-      </div> -->
+
 
     {/if}
 
 
-
-<!-- {#if error}
-  <div class="alert alert-danger mt-4">
-    {error}
-  </div>
-{/if} -->
-
 <style>
+
+input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+
     .nav-link:hover {
         background-color: #001A56 !important; /* Bootstrap primary color or any custom color */
         color: rgb(255, 255, 255) !important; /* Make the text white when hovered */
@@ -209,4 +219,3 @@
     }
   </style>
 
-  <!-- //comment para mo highlight -->
