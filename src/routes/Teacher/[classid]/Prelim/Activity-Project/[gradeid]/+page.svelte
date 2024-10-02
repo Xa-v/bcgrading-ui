@@ -9,7 +9,11 @@
     let activityprojectscoresprelim = [];
     let error = '';
     let userRole = '';
+
+
     let scoresToUpdate = {};
+
+    
     $: ({ classid, gradeid } = $page.params);
 
     onMount(async () => {
