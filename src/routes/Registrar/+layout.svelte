@@ -122,11 +122,11 @@
       <p>{error}</p>
   {/if}
     
-  <nav class="navbar fixed-top custom-navbar-size">
+  <!-- <nav class="navbar fixed-top custom-navbar-size">
     <div class="container-fluid">
-      <!-- Move the toggler button to the left -->
+     
       <div class="d-flex align-items-center gap-2">
-        <!-- <div> <a href="/Registrar"><img src="https://cebu.mis.benedictocollege.edu.ph/assets/logo-21a9a44cc070aa7b0436551dba367c97e53bce3864cb2151d4ed24682b8ae540.png" alt="" class="logo"></a> </div> -->
+        <div> <a href="/Registrar"><img src="https://cebu.mis.benedictocollege.edu.ph/assets/logo-21a9a44cc070aa7b0436551dba367c97e53bce3864cb2151d4ed24682b8ae540.png" alt="" class="logo"></a> </div>
   
         <button class="navbar-toggler bg-transparent navbar-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
           <img src="https://assets.website-files.com/62e8f5c9dbfdccaf94d287ac/62ea9a21af559238cc12a830_menu_FILL0_wght400_GRAD0_opsz48%20(2).svg" alt="" class="navbar-toggler-icon navbar-span">
@@ -192,26 +192,63 @@
         </div>
       </div>
     </div>
-  </nav>
+  </nav> -->
   
-  <div class="app-container">
-    <nav class="navbar navbar-expand navbar-dark bg-dark hover">
-      <div class="container">
-        <div class="navbar-nav me-auto">
-     
-        </div>
-        <div class="navbar-nav ms-auto">
-          <button class="nav-item nav-link text-white">LHAHAHAHA</button>
-        </div>
+    <nav id="sidebar" class="topbar text-white d-flex flex-column custom-offcanvas-size p-3 vh-100" style="position: fixed; top: 0; left: 0; width: 250px; z-index: 1030;">
+      <!-- <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+        <div style="width: 48px; height: 48px;"></div>
       </div>
+   -->
+      <!-- Sidebar links -->
+      <ul class="navbar-nav flex-grow-1 pe-3 ">
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/Registrar">
+            <img src="/src/lib/images/home.svg" alt="">
+            Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Registrar/ClassList/">
+            <img src="/src/lib/images/th-large.svg" alt="" class="ml-3 box">
+            List of Classes </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Registrar/AddClass/">
+            <img src="/src/lib/images/customer-lists-fill.svg" alt="">
+            Add Class</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Registrar/AddSubject/">
+            <img src="/src/lib/images/customer-lists-fill.svg" alt="">
+            Add Subjects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Registrar/SubjectList/">
+            <img src="/src/lib/images/customer-lists-fill.svg" alt="">
+            List of Subjects</a>
+        </li>
+       
+     
+     
+      </ul>
+  
+      <!-- Logout button -->
+      <button type="button" class="btn btn-sm btn-danger p-2 mt-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Logout
+      </button>
     </nav>
-    <div class="card">
-      <div class="card-header"></div>
-      <div class="card-body">
-        <slot></slot>
+
+    <div class="app-container flex-grow-1" style="margin-left: 250px; padding-top: 80px;">
+      <!-- Card or main body content -->
+      <div class="card rounded-0" >
+        <div class="card-body" style="height: 88.5vh;">
+          <slot></slot>
+        </div>
       </div>
     </div>
-  </div>
+    
+
+  
   
   <!-- Button trigger modal -->
   
