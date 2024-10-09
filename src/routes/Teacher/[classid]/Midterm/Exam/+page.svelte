@@ -166,25 +166,48 @@
 
       <!-- Container Row -->
       <div class="row">
-          <!-- Cards displaying attendance data (left side, scrollable) -->
-          <div class="col-md-8" style="max-height: 50vh; overflow-y: auto;">
-              <div class="row mt-3">
-                  {#each exammidterm as exam}
-                  <div class="col-md-4">
-                      <div class="acard card rounded-0 text-center mb-3 shadow-sm" style="width: 15rem; height: 7rem;">
-                          <a href={`/Teacher/${classid}/Midterm/Exam/${exam.gradeid}`} style="text-decoration: none; color: inherit;">
-                            <div class="card-body p-2">
-                              <strong class="d-block">{exam.scoretype}</strong>
-                              <strong class="d-block">Perfect Score: {exam.perfectscore}</strong>
-                              <strong class="d-block border-top border-dark"> {new Date(exam.created).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong>
-                          </div>
-                          
-                          </a>
-                      </div>
-                  </div>
-                  {/each}
-              </div>
-          </div>
+        <!-- Cards displaying attendance data (left side, scrollable) -->
+        <div class="col-md-8" style="max-height: 50vh;">
+            <div class="row mt-3">
+                {#each exammidterm as exam}
+                <div class="col-md-3">
+                    <div class="acard card rounded-0 text-center mb-3 shadow-sm">
+                        <a href={`/Teacher/${classid}/Midterm/Exam/${exam.gradeid}`} style="text-decoration: none; color: inherit;">
+                          <div class="card-body p-2 pb-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="m-0 p-2">{exam.scoretype}</p>
+                                </div>
+                                <div class="dropdown">
+                                  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                
+                                  </button>
+                                  <ul class="dropdown-menu p-3">
+                                      <li>
+                                          <button class="text-decoration-none border border-0 bg-transparent" type="button"
+                                          >
+                                              Edit date
+                                          </button>
+                                      </li>
+                                      <li>
+                                          <button class="text-decoration-none border border-0 bg-transparent" type="button">
+                                              Delete
+                                          </button>
+                                      </li>
+                                  </ul>
+                                </div>
+                            </div>
+                
+                            <strong class="mt-2 pt-2"> {new Date(exam.created).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong>
+                        </div>
+                      
+                        </a>
+                     
+                    </div>
+                </div>
+                {/each}
+            </div>
+        </div>
 
           <!-- Form for adding attendance (right side, smaller and aligned) -->
           <div class="col-md-4">

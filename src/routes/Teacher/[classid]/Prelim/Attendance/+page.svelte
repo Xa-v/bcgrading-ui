@@ -165,20 +165,46 @@
         <!-- Container Row -->
         <div class="row">
             <!-- Cards displaying attendance data (left side, scrollable) -->
-            <div class="col-md-8" style="max-height: 50vh; overflow-y: auto;">
+            <div class="col-md-8" style="max-height: 50vh;">
                 <div class="row mt-3">
                     {#each attendanceprelim as attendance}
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <a href={`/Teacher/${classid}/Prelim/Attendance/${attendance.gradeid}`} style="text-decoration: none; color: inherit;">
-                        <div class="card rounded-0 text-center mb-3 shadow-sm border acard" style="width: 15rem; height: 7rem;">
+                        <div class="card rounded-0 text-center mb-3 shadow-sm border acard" >
                             
-                                <div class="card-body p-2">
+                                <div class="card-body p-2 pb-4">
                                     <!-- <p class="card-title">{attendance.scoretype}</p> -->
-                                    <p class="card-text">Attendance DATE:</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="card-text m-0 p-2">Attendance </p>
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                            
+                                            </button>
+                                            <ul class="dropdown-menu p-3">
+                                                <li>
+                                                    <button class="text-decoration-none border border-0 bg-transparent" type="button"
+                                                    >
+                                                        Edit date
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="text-decoration-none border border-0 bg-transparent" type="button">
+                                                        Delete
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                          </div>
+                                    </div>
                                   
                                     <strong>{new Date(attendance.attendanceDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong>
+
+                               
                                 </div>
+
+                              
+                             
                         </div>
+                        
                     </a>  
                     </div>
                     {/each}
